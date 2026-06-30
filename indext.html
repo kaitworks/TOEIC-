@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEIC Class</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#f7f6f3;
+  --card:#ffffff;
+  --card2:#faf9f7;
+  --border:#ece9e3;
+  --border2:#d8d3cb;
+  --txt:#1c1b19;
+  --txt2:#5c5854;
+  --txt3:#a8a39c;
+
+  --w1:#3730a3; --w1l:#f0f0fc; --w1b:#c7caf0;
+  --w2:#0f766e; --w2l:#f0fdfb; --w2b:#99e6dc;
+  --w3:#c0392b; --w3l:#fef4f3; --w3b:#f5b4ae;
+  --w4:#a16207; --w4l:#fffbeb; --w4b:#fde68a;
+  --w5:#166534; --w5l:#f0fdf4; --w5b:#86efac;
+
+  --fill:#be123c;    --filll:#fff1f2; --fillb:#fda4af;
+  --write:#6d28d9;   --writel:#f5f3ff; --writeb:#c4b5fd;
+  --vocab:#0369a1;   --vocabl:#f0f9ff; --vocabb:#7dd3fc;
+  --sum:#065f46;     --suml:#ecfdf5;   --sumb:#6ee7b7;
+
+  --r:12px; --r-sm:8px;
+  --sh:0 1px 4px rgba(0,0,0,.06);
+  --sh-md:0 4px 20px rgba(0,0,0,.08);
+  --f:'Be Vietnam Pro',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:var(--f);font-size:14px;line-height:1.7}
+a{color:inherit;text-decoration:none}
+strong{font-weight:600}
+
+/* ─── HEADER ─── */
+.hdr{background:var(--card);border-bottom:1px solid var(--border);padding:28px 40px 20px;position:sticky;top:0;z-index:200;box-shadow:var(--sh)}
+.hdr-inner{max-width:1040px;margin:0 auto}
+.hdr-top{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:18px}
+.brand h1{font-size:19px;font-weight:800;letter-spacing:-.02em;color:var(--txt)}
+.brand p{font-size:12px;color:var(--txt3);margin-top:3px}
+.scores{display:flex;gap:8px;flex-wrap:wrap}
+.sc-pill{background:var(--card2);border:1px solid var(--border);border-radius:var(--r);padding:8px 16px;text-align:center}
+.sc-pill .lbl{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--txt3);margin-bottom:2px}
+.sc-pill .val{font-size:20px;font-weight:800;letter-spacing:-.02em}
+.sc-pill .sub{font-size:11px;color:var(--txt3);margin-top:1px}
+.val.warn{color:var(--w4)} .val.good{color:var(--w5)}
+
+/* week tabs */
+.wtabs{display:flex;gap:4px;overflow-x:auto;padding-bottom:1px}
+.wtab{padding:7px 16px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:1.5px solid transparent;background:transparent;color:var(--txt3);transition:all .15s;white-space:nowrap;font-family:var(--f)}
+.wtab:hover{background:var(--card2);color:var(--txt2)}
+.wtab.w1.on{background:var(--w1l);color:var(--w1);border-color:var(--w1b)}
+.wtab.w2.on{background:var(--w2l);color:var(--w2);border-color:var(--w2b)}
+.wtab.w3.on{background:var(--w3l);color:var(--w3);border-color:var(--w3b)}
+.wtab.w4.on{background:var(--w4l);color:var(--w4);border-color:var(--w4b)}
+.wtab.w5.on{background:var(--w5l);color:var(--w5);border-color:var(--w5b)}
+
+/* ─── MAIN ─── */
+.main{max-width:1040px;margin:0 auto;padding:32px 40px 80px}
+.wpanel{display:none} .wpanel.on{display:block}
+
+/* week intro */
+.wk-intro{margin-bottom:24px}
+.wbadge{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;padding:4px 10px;border-radius:20px;margin-bottom:8px}
+.wb1{background:var(--w1l);color:var(--w1);border:1px solid var(--w1b)}
+.wb2{background:var(--w2l);color:var(--w2);border:1px solid var(--w2b)}
+.wb3{background:var(--w3l);color:var(--w3);border:1px solid var(--w3b)}
+.wb4{background:var(--w4l);color:var(--w4);border:1px solid var(--w4b)}
+.wb5{background:var(--w5l);color:var(--w5);border:1px solid var(--w5b)}
+.wk-intro h2{font-size:22px;font-weight:800;letter-spacing:-.025em;color:var(--txt);margin-bottom:6px}
+.wk-intro p{font-size:13.5px;color:var(--txt2);max-width:680px;line-height:1.65}
+
+/* ─── ACCORDION ─── */
+.acc{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:10px}
+.acc-hd{display:flex;align-items:center;gap:14px;padding:16px 20px;cursor:pointer;transition:background .13s;user-select:none}
+.acc-hd:hover{background:var(--card2)}
+.acc-hd-left{display:flex;align-items:center;gap:12px;flex:1;min-width:0}
+.acc-num{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--txt3);white-space:nowrap;background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:2px 8px}
+.acc-title{font-size:14.5px;font-weight:700;color:var(--txt)}
+.acc-right{display:flex;align-items:center;gap:6px;flex-shrink:0;flex-wrap:wrap}
+.acc-time{font-size:11px;color:var(--txt3);white-space:nowrap}
+.acc-arr{font-size:11px;color:var(--txt3);transition:transform .22s;flex-shrink:0;margin-left:4px}
+.acc-arr.open{transform:rotate(180deg)}
+.acc-body{display:none;border-top:1px solid var(--border)}
+.acc-body.open{display:block}
+
+/* ─── SECTION INSIDE ACC ─── */
+.asec{padding:20px 22px;border-bottom:1px solid var(--border)}
+.asec:last-child{border-bottom:none}
+.asec-title{font-size:12px;font-weight:700;color:var(--txt2);margin-bottom:14px;display:flex;align-items:center;gap:6px;letter-spacing:0}
+
+/* ─── TAGS ─── */
+.tag{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:3px 9px;border-radius:20px;margin-right:4px;margin-bottom:2px;white-space:nowrap}
+.tg-fill{background:var(--filll);color:var(--fill);border:1px solid var(--fillb)}
+.tg-write{background:var(--writel);color:var(--write);border:1px solid var(--writeb)}
+.tg-vocab{background:var(--vocabl);color:var(--vocab);border:1px solid var(--vocabb)}
+.tg-sum{background:var(--suml);color:var(--sum);border:1px solid var(--sumb)}
+.tg-listen{background:var(--w4l);color:var(--w4);border:1px solid var(--w4b)}
+.tg-read{background:var(--w3l);color:var(--w3);border:1px solid var(--w3b)}
+.tg-mock{background:var(--w5l);color:var(--w5);border:1px solid var(--w5b)}
+.tg-gram{background:var(--w1l);color:var(--w1);border:1px solid var(--w1b)}
+.tg-review{background:var(--writel);color:var(--write);border:1px solid var(--writeb)}
+
+/* ─── CONTENT BLOCKS ─── */
+.theory-block{margin-bottom:18px;padding-bottom:16px;border-bottom:1px dashed var(--border)}
+.theory-block:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
+.theory-title{font-size:13.5px;font-weight:700;color:var(--txt);margin-bottom:10px}
+.rule-list{list-style:none;padding:0}
+.rule-list li{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:var(--txt2);margin-bottom:9px;line-height:1.6}
+.rule-list li .dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:7px;background:var(--border2)}
+.rnote{font-size:12.5px;color:var(--txt3);margin-left:15px;font-style:italic;line-height:1.5;margin-top:3px;margin-bottom:4px}
+.codebox{background:var(--card2);border:1px solid var(--border);border-left:3px solid var(--border2);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:14px 16px;font-size:13px;color:var(--txt2);line-height:1.75;margin-top:10px;font-family:var(--f)}
+.codebox em{color:var(--txt3);font-style:italic}
+
+/* bài tập 2 cột */
+.ex-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ex-card{background:var(--card2);border:1px solid var(--border);border-radius:var(--r-sm);padding:16px 18px}
+.ex-title{font-size:13.5px;font-weight:700;color:var(--txt);margin-bottom:8px;margin-top:6px}
+.ex-steps{margin-top:6px}
+.exs{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--txt2);margin-bottom:7px;line-height:1.55}
+.exs .sd{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:7px}
+.exn{font-size:12px;color:var(--txt3);margin-left:14px;font-style:italic;line-height:1.45;margin-bottom:5px}
+.ex-eg{background:var(--card);border:1px solid var(--border);border-radius:var(--r-sm);padding:10px 13px;font-size:12.5px;color:var(--txt2);line-height:1.7;margin-top:10px}
+.ex-eg em{color:var(--txt3)}
+
+/* bài tóm tắt */
+.passage-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--sum);margin-bottom:4px}
+.passage{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--sum);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:12px 14px;font-size:13px;color:var(--txt2);line-height:1.75;margin:8px 0;font-style:italic}
+
+/* vocab */
+.vocab-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.vg{background:var(--vocabl);border:1px solid var(--vocabb);border-radius:var(--r-sm);padding:12px 14px}
+.vg-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--vocab);margin-bottom:3px}
+.vg-title{font-size:13px;font-weight:700;color:var(--txt);margin-bottom:5px}
+.vg-words{font-size:12.5px;color:var(--txt2);line-height:1.75}
+.vg-tip{background:var(--card2);border:1px solid var(--border);border-radius:var(--r-sm);padding:12px 14px}
+.vg-tip-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--txt3);margin-bottom:3px}
+.vg-tip-title{font-size:13px;font-weight:600;color:var(--txt2);margin-bottom:4px}
+.vg-tip-body{font-size:12.5px;color:var(--txt3);line-height:1.6}
+
+/* format card (tuần 3-5) */
+.fmt-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+.fmt-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px}
+.fmt-card h3{font-size:14px;font-weight:700;color:var(--txt);margin-bottom:12px}
+.fci{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--txt2);margin-bottom:9px;line-height:1.55}
+.fci-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.fci-note{font-size:11.5px;color:var(--txt3);margin-top:2px;font-style:italic}
+
+/* time bar */
+.tbar{display:flex;height:6px;border-radius:4px;overflow:hidden;gap:2px;margin:10px 0 6px}
+.ts{height:100%;border-radius:2px}
+.tlbls{display:flex;gap:12px;flex-wrap:wrap}
+.tl{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--txt2)}
+.tl-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+
+/* session block inside accordion for W3-W5 */
+.sess-block{background:var(--card2);border:1px solid var(--border);border-radius:var(--r-sm);padding:14px 16px;margin-bottom:8px}
+.sess-block:last-child{margin-bottom:0}
+
+/* rule-box */
+.rule-box{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:18px}
+.rb-head{padding:12px 18px;border-bottom:1px solid var(--border);font-size:13.5px;font-weight:700;color:var(--txt);background:var(--card2)}
+.rb-cols{display:grid;grid-template-columns:repeat(3,1fr)}
+.rb-col{padding:14px 18px;border-right:1px solid var(--border)}
+.rb-col:last-child{border-right:none}
+.rb-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px}
+.rbi{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--txt2);margin-bottom:8px;line-height:1.5}
+.rbn{font-size:12px;color:var(--txt3);margin-left:14px;font-style:italic;margin-bottom:6px;line-height:1.4}
+
+/* score table */
+.score-tbl{width:100%;border-collapse:collapse;font-size:13px;background:var(--card);border-radius:var(--r);overflow:hidden;border:1px solid var(--border);margin-bottom:18px}
+.score-tbl th{padding:10px 14px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--txt3);background:var(--card2);border-bottom:1px solid var(--border)}
+.score-tbl td{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--txt2)}
+.score-tbl tr:last-child td{border-bottom:none}
+.td-b{font-weight:700;color:var(--txt)}
+.td-g{font-weight:800;color:var(--w5)}
+.td-na{color:var(--txt3)}
+
+/* resources */
+.res-title{font-size:11px;font-weight:600;color:var(--txt3);margin-bottom:10px;letter-spacing:.01em}
+.res-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px;margin-bottom:24px}
+.res-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;transition:border-color .15s,box-shadow .15s;display:block}
+.res-card:hover{border-color:var(--border2);box-shadow:var(--sh-md)}
+.rc-cat{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px}
+.rc-name{font-size:13px;font-weight:700;color:var(--txt);margin-bottom:4px}
+.rc-desc{font-size:12.5px;color:var(--txt2);line-height:1.5}
+.rc-url{font-size:11px;color:var(--txt3);margin-top:5px}
+
+.divider{height:1px;background:var(--border);margin:24px 0}
+.topic-pill{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;margin-bottom:8px}
+.tp-w{background:var(--writel);color:var(--write);border:1px solid var(--writeb)}
+.tp-s{background:var(--suml);color:var(--sum);border:1px solid var(--sumb)}
+
+@media(max-width:780px){
+  .hdr{padding:20px 18px 16px}
+  .main{padding:18px 18px 60px}
+  .ex-grid,.fmt-grid,.vocab-grid{grid-template-columns:1fr}
+  .rb-cols{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ════ HEADER ════ -->
+<div class="hdr">
+  <div class="hdr-inner">
+    <div class="hdr-top">
+      <div class="brand">
+        <h1>📋 TOEIC Class</h1>
+        <p>5 tuần · 3 buổi/tuần · 15 buổi tổng cộng · Điểm yếu: Part 5 ngữ pháp · Listening còn nghe bắt keyword</p>
+      </div>
+    </div>
+    <div class="wtabs">
+      <button class="wtab w1 on" onclick="sw(1)">Tuần 1 — Ngữ pháp & Từ vựng</button>
+      <button class="wtab w2" onclick="sw(2)">Tuần 2 — Chiến lược & Tóm tắt</button>
+      <button class="wtab w3" onclick="sw(3)">Tuần 3 — Luyện Reading</button>
+      <button class="wtab w4" onclick="sw(4)">Tuần 4 — Luyện Listening</button>
+      <button class="wtab w5" onclick="sw(5)">Tuần 5 — Làm đề tổng hợp</button>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- ══════════ TUẦN 1 ══════════ -->
+<div class="wpanel on" id="w1">
+  <div class="wk-intro">
+    <span class="wbadge wb1">Tuần 1 · 3 buổi</span>
+    <h2>Ngữ pháp & Từ vựng</h2>
+    <p>Mỗi buổi học lý thuyết ngữ pháp → làm bài điền theo dạng vừa học → viết đoạn văn áp dụng → học từ vựng theo chủ đề. Tuần này chưa làm đề tổng hợp.</p>
+  </div>
+
+  <!-- B1 -->
+  <div class="acc">
+    <div class="acc-hd" onclick="tog(this)">
+      <div class="acc-hd-left">
+        <span class="acc-num">Buổi 1</span>
+        <span class="acc-title">Các thì · Câu chủ động & bị động · Vị trí danh/động/tính từ</span>
+      </div>
+      <div class="acc-right">
+        <span class="acc-time">⏱ ~95 phút</span>
+        <span class="tag tg-gram">Ngữ pháp</span>
+        <span class="tag tg-fill">Điền từ</span>
+        <span class="tag tg-write">Viết</span>
+      </div>
+      <span class="acc-arr">▼</span>
+    </div>
+    <div class="acc-body open">
+
+      <div class="asec">
+        <div class="asec-title">🩺 Bài test chẩn đoán — làm TRƯỚC khi học lý thuyết (20 phút)</div>
+        <div class="theory-block">
+          <div class="theory-title">Mục đích: xác định ngay dạng nào yếu nhất để tập trung đúng chỗ trong cả tuần 1</div>
+          <ul class="rule-list">
+            <li><div class="dot"></div><div>Làm <strong>50 câu</strong> Part 5 — cover <strong>tất cả 7 dạng ngữ pháp học trong tuần 1</strong> — <strong>không xem đáp án</strong> trong khi làm · bấm giờ đúng 20 phút</div></li>
+            <li><div class="dot"></div><div>Nguồn: mở file <strong>TOEIC_Tuan1_BaiTap_Day_Du.xlsx</strong> → sheet "Bài test chẩn đoán" — đã trộn sẵn đủ 7 dạng: Thì động từ · Bị động · Vị trí từ loại · Mệnh đề quan hệ · Câu điều kiện · So sánh · Liên từ & Giới từ</div></li>
+          </ul>
+          <div class="codebox">Sau khi làm xong → chấm điểm bằng sheet "Đáp án — Bài test chẩn đoán" trong cùng file → điền vào đây (mỗi dạng ~7 câu trong đề 50 câu):<br><br>
+            Thì động từ: &nbsp;&nbsp;&nbsp;___ / 7 &nbsp;&nbsp;&nbsp;→ &nbsp;dưới 5: ôn kỹ bảng pattern 8 thì trước Buổi 1<br>
+            Bị động: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;___ / 7 &nbsp;&nbsp;&nbsp;→ &nbsp;dưới 5: chú ý kỹ phần bị động trong Buổi 1<br>
+            Vị trí từ loại: &nbsp;&nbsp;___ / 7 &nbsp;&nbsp;&nbsp;→ &nbsp;dưới 5: luyện nhận dạng đuôi từ mỗi tối<br>
+            Mệnh đề quan hệ: ___ / 7 &nbsp;&nbsp;&nbsp;→ &nbsp;dưới 5: tập trung kỹ phần này ở Buổi 2<br>
+            Câu điều kiện: &nbsp;&nbsp;&nbsp;___ / 7 &nbsp;&nbsp;&nbsp;→ &nbsp;dưới 5: tập trung kỹ phần này ở Buổi 2<br>
+            So sánh: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;___ / 8 &nbsp;&nbsp;&nbsp;→ &nbsp;dưới 5: tập trung kỹ phần này ở Buổi 3<br>
+            Liên từ & Giới từ: ___ / 7 &nbsp;&nbsp;&nbsp;→ &nbsp;dưới 5: drill thêm sau Buổi 3<br><br>
+            <strong>2 dạng điểm thấp nhất = dạng cần ưu tiên drill nhất trong cả tuần 1.</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="asec">
+        <div class="asec-title">📖 Phần 1 — Các thì động từ (20 phút)</div>
+        <div class="theory-block">
+          <div class="theory-title">Pattern tổng quát — học 1 lần, áp dụng cho tất cả</div>
+          <ul class="rule-list">
+            <li><div class="dot"></div><div>Mỗi thì đều có công thức cố định (pattern). Khi nhìn thấy từ tín hiệu → lắp công thức → ra đáp án — không cần suy nghĩ nhiều.</div></li>
+            <li><div class="dot"></div>Quy tắc chọn thì trong Part 5: <strong>① Tìm từ tín hiệu → ② Tra công thức → ③ Điền đáp án</strong></li>
+          </ul>
+        </div>
+
+        <div class="theory-block">
+          <div class="theory-title" style="color:var(--w1)">① Hiện tại đơn — Present Simple</div>
+          <div class="codebox" style="border-left-color:var(--w1b)"><strong>Pattern:</strong> S + V(s/es) &nbsp;|&nbsp; Phủ định: S + don't/doesn't + V &nbsp;|&nbsp; Hỏi: Do/Does + S + V?<br><strong>Dùng khi:</strong> thói quen · quy luật · sự thật hiển nhiên · lịch trình cố định<br><strong>Từ tín hiệu:</strong> always · usually · often · sometimes · every day/week/month · generally · regularly<br><em>→ "The finance team submits the report <u>every Monday</u>." · "She <u>usually</u> arrives at 8 AM."</em></div>
+        </div>
+
+        <div class="theory-block">
+          <div class="theory-title" style="color:var(--w1)">② Hiện tại tiếp diễn — Present Continuous</div>
+          <div class="codebox" style="border-left-color:var(--w1b)"><strong>Pattern:</strong> S + is/am/are + V-ing &nbsp;|&nbsp; Phủ định: S + is/am/are + not + V-ing<br><strong>Dùng khi:</strong> hành động đang xảy ra ngay lúc nói · kế hoạch đã sắp xếp trong tương lai gần<br><strong>Từ tín hiệu:</strong> now · at the moment · currently · right now · this week · look! · listen!<br><em>→ "She is <u>currently</u> reviewing the budget." · "We are meeting the client <u>tomorrow</u>." (kế hoạch đã đặt)</em></div>
+        </div>
+
+        <div class="theory-block">
+          <div class="theory-title" style="color:var(--w3)">③ Quá khứ đơn — Past Simple</div>
+          <div class="codebox" style="border-left-color:var(--w3b)"><strong>Pattern:</strong> S + V-ed/cột 2 &nbsp;|&nbsp; Phủ định: S + didn't + V<br><strong>Dùng khi:</strong> hành động đã xảy ra và kết thúc hoàn toàn trong quá khứ<br><strong>Từ tín hiệu:</strong> yesterday · ago · last (week/month/year) · in + năm quá khứ · in the past<br><em>→ "We submitted the proposal two days <u>ago</u>." · "She resigned <u>last</u> quarter."</em></div>
+        </div>
+
+        <div class="theory-block">
+          <div class="theory-title" style="color:var(--w3)">④ Quá khứ tiếp diễn — Past Continuous</div>
+          <div class="codebox" style="border-left-color:var(--w3b)"><strong>Pattern:</strong> S + was/were + V-ing &nbsp;|&nbsp; Phủ định: S + was/were + not + V-ing<br><strong>Dùng khi:</strong> hành động đang diễn ra tại 1 thời điểm trong quá khứ · hành động bị gián đoạn (dùng với when + quá khứ đơn)<br><strong>Từ tín hiệu:</strong> at + giờ + yesterday · at that time · while · when (mệnh đề kia dùng quá khứ đơn)<br><em>→ "She <u>was presenting</u> to the board <u>when</u> the fire alarm went off."<br>→ "<u>While</u> I was reviewing the data, my manager called."</em></div>
+        </div>
+
+        <div class="theory-block">
+          <div class="theory-title" style="color:var(--w4)">⑤ Hiện tại hoàn thành — Present Perfect</div>
+          <div class="codebox" style="border-left-color:var(--w4b)"><strong>Pattern:</strong> S + has/have + V-ed/cột 3 &nbsp;|&nbsp; Tiếp diễn: S + has/have + been + V-ing<br><strong>Dùng khi:</strong> hành động bắt đầu trong quá khứ và vẫn còn liên quan đến hiện tại<br><strong>Từ tín hiệu:</strong> since · for · already · yet · just · recently · so far · up to now · ever/never<br><em>→ "The team has worked on this project <u>since</u> January." · "She has <u>just</u> submitted the report."</em></div>
+        </div>
+
+        <div class="theory-block">
+          <div class="theory-title" style="color:var(--w4)">⑥ Quá khứ hoàn thành — Past Perfect</div>
+          <div class="codebox" style="border-left-color:var(--w4b)"><strong>Pattern:</strong> S + had + V-ed/cột 3 &nbsp;|&nbsp; Phủ định: S + had + not + V-ed/cột 3<br><strong>Dùng khi:</strong> hành động xảy ra TRƯỚC 1 hành động khác cũng trong quá khứ<br><strong>Từ tín hiệu:</strong> by the time · before · after · when (mệnh đề kia dùng quá khứ đơn) · already<br><em>→ "By the time she arrived, we <u>had</u> already <u>finished</u> the meeting."<br>→ "He <u>had sent</u> the email before the meeting started."</em></div>
+        </div>
+
+        <div class="theory-block">
+          <div class="theory-title" style="color:var(--w5)">⑦ Tương lai đơn — Future Simple</div>
+          <div class="codebox" style="border-left-color:var(--w5b)"><strong>Pattern:</strong> S + will + V &nbsp;|&nbsp; Phủ định: S + will not/won't + V<br><strong>Dùng khi:</strong> quyết định tức thì · dự đoán · lời hứa · tương lai chưa được lên kế hoạch<br><strong>Từ tín hiệu:</strong> tomorrow · next (week/month/year) · soon · in the future · by + thời điểm tương lai<br><em>→ "The new branch <u>will open</u> <u>next</u> quarter." · "I <u>will call</u> you back shortly."</em></div>
+        </div>
+
+        <div class="theory-block">
+          <div class="theory-title" style="color:var(--w5)">⑧ Tương lai tiếp diễn — Future Continuous</div>
+          <div class="codebox" style="border-left-color:var(--w5b)"><strong>Pattern:</strong> S + will be + V-ing &nbsp;|&nbsp; Phủ định: S + will not be + V-ing<br><strong>Dùng khi:</strong> hành động đang diễn ra tại 1 thời điểm trong tương lai · 2 hành động xảy ra song song trong tương lai<br><strong>Từ tín hiệu:</strong> at this time tomorrow · at + giờ + next week · while (mệnh đề kia dùng tương lai đơn)<br><em>→ "At this time tomorrow, she <u>will be presenting</u> to the board."<br>→ "<u>While</u> you are traveling, the team <u>will be finalizing</u> the report."</em></div>
+        </div>
+
+        <div class="theory-block">
+          <div class="theory-title">Bảng tóm tắt pattern — nhìn là nhớ ngay</div>
+          <div class="codebox" style="line-height:1.9">
+<strong style="color:#1E3A5F">Hiện tại đơn</strong>      S + V(s/es)                     → always · every · usually<br>
+<strong style="color:#1E3A5F">Hiện tại tiếp diễn</strong>  S + is/am/are + V-ing           → now · currently · at the moment<br>
+<strong style="color:#991b1b">Quá khứ đơn</strong>       S + V-ed/cột 2                  → yesterday · ago · last...<br>
+<strong style="color:#991b1b">Quá khứ tiếp diễn</strong>  S + was/were + V-ing            → while · when · at that time<br>
+<strong style="color:#b45309">Hiện tại hoàn thành</strong> S + has/have + V-ed/cột 3       → since · for · already · just<br>
+<strong style="color:#b45309">Quá khứ hoàn thành</strong>  S + had + V-ed/cột 3            → by the time · before · after<br>
+<strong style="color:#15803d">Tương lai đơn</strong>      S + will + V                    → tomorrow · next... · soon<br>
+<strong style="color:#15803d">Tương lai tiếp diễn</strong> S + will be + V-ing             → at this time tomorrow · while</div>
+        </div>
+      </div>
+
+      <div class="asec">
+        <div class="asec-title">📖 Phần 2 — Câu chủ động & Bị động (10 phút)</div>
+        <div class="theory-block">
+          <div class="theory-title">Cách phân biệt và nhận dạng trong 5 giây</div>
+          <ul class="rule-list">
+            <li><div class="dot"></div><div><strong>Câu chủ động:</strong> chủ ngữ là người/vật làm hành động<br><span class="rnote">→ "The manager reviewed the report." (người quản lý tự làm)</span></div></li>
+            <li><div class="dot"></div><div><strong>Câu bị động:</strong> chủ ngữ là người/vật nhận hành động → cấu trúc: be + past participle<br><span class="rnote">→ "The report was reviewed by the manager." (báo cáo được xem xét)</span></div></li>
+            <li><div class="dot"></div><div><strong>Dấu hiệu nhận biết trong Part 5:</strong> 4 đáp án gồm cả dạng bị động (was/were + pp) lẫn chủ động → nhìn vào chủ ngữ câu — chủ ngữ làm hay nhận hành động?</div></li>
+          </ul>
+          <div class="codebox">"The new policy ______ by the board last week." → chủ ngữ "policy" nhận hành động → bị động → was approved ✓<br><em>(KHÔNG phải: approved / has approved / approves)</em></div>
+        </div>
+      </div>
+
+      <div class="asec">
+        <div class="asec-title">📖 Phần 3 — Vị trí danh từ, động từ, tính từ trong câu (10 phút)</div>
+        <div class="theory-block">
+          <div class="theory-title">Nhìn vị trí chỗ trống → xác định cần từ loại nào</div>
+          <ul class="rule-list">
+            <li><div class="dot"></div><div><strong>Danh từ</strong> đứng ở: sau mạo từ (a/an/the) · sau tính từ · sau giới từ · làm chủ ngữ hoặc tân ngữ<br><span class="rnote">→ "The _____ of the project was delayed." → cần danh từ (vd: completion)</span></div></li>
+            <li><div class="dot"></div><div><strong>Tính từ</strong> đứng ở: trước danh từ (bổ nghĩa danh từ) · sau động từ liên kết (be/seem/become/appear)<br><span class="rnote">→ "The results were ______." → sau "were" → cần tính từ (vd: impressive)</span></div></li>
+            <li><div class="dot"></div><div><strong>Trạng từ</strong> đứng ở: trước/sau động từ · trước tính từ/trạng từ khác · đầu hoặc cuối câu<br><span class="rnote">→ "She ______ completed the task." → bổ nghĩa động từ → cần trạng từ (vd: successfully)</span></div></li>
+            <li><div class="dot"></div><div><strong>Động từ (V-ing / to V)</strong>: sau giới từ → V-ing · sau động từ nguyên thể (want/plan/decide) → to V<br><span class="rnote">→ "She is interested in ______." → sau giới từ "in" → working (không phải work/to work)</span></div></li>
+          </ul>
+          <div class="codebox">Quy trình 3 bước khi gặp câu Part 5:<br>① Nhìn 4 đáp án → xác định đây là câu gì (thì? bị động? vị trí từ loại?)<br>② Nhìn chỗ trống trong câu → vị trí đó cần từ loại nào?<br>③ Chọn đáp án phù hợp — tối đa 40 giây</div>
+        </div>
+      </div>
+
+      <div class="asec">
+        <div class="asec-title">✏️ Bài tập hôm nay</div>
+        <div class="ex-grid">
+          <div class="ex-card">
+            <span class="tag tg-fill">Bài tập 100 câu — 40 phút</span>
+            <div class="ex-title">100 câu Part 5 — Thì động từ · Bị động · Vị trí từ loại</div>
+            <div class="ex-steps">
+              <div class="exs"><div class="sd" style="background:var(--fill)"></div>Mở file <strong>TOEIC_Tuan1_BaiTap_Day_Du.xlsx</strong> → sheet "Buổi 1" → làm đúng 100 câu, bấm giờ 40 phút</div>
+              <div class="exs"><div class="sd" style="background:var(--fill)"></div>Phân bổ: ~40 câu thì động từ · ~30 câu bị động · ~30 câu vị trí từ loại</div>
+              <div class="exs"><div class="sd" style="background:var(--fill)"></div>Trước mỗi câu: ghi tên dạng câu vào lề (thì / bị động / vị trí) rồi mới chọn đáp án</div>
+              <div class="exs"><div class="sd" style="background:var(--fill)"></div>Chấm điểm bằng sheet "Đáp án — Buổi 1" trong cùng file · câu sai → ghi vào TOEIC_Vocabulary.xlsx sheet Error Log</div>
+            </div>
+          </div>
+          <div class="ex-card">
+            <span class="tag tg-write">Bài viết — 15 phút</span>
+            <div class="topic-pill tp-w" style="background:#fef3c7;color:#92400e;border-color:#fcd34d">📌 Chủ đề xuyên suốt tuần 1 — Buổi 1/3</div>
+            <div class="ex-title">Kể về 1 ngày làm việc điển hình của bạn</div>
+            <div class="ex-steps">
+              <div class="exs"><div class="sd" style="background:var(--write)"></div>Viết 6–8 câu mô tả ngày làm việc từ sáng đến chiều — dùng thứ tự thời gian thực tế</div>
+              <div class="exs"><div class="sd" style="background:var(--write)"></div>Bắt buộc: ít nhất 3 thì khác nhau + 1 câu bị động + 1 câu có V-ing sau giới từ</div>
+              <div class="exs"><div class="sd" style="background:var(--write)"></div>Gạch chân và ghi chú từng điểm ngữ pháp đã dùng ở lề</div>
+            </div>
+            <div class="ex-eg"><em>"I <u>arrived</u> at the office at 8 AM. (quá khứ đơn)<br>The morning meeting <u>was held</u> by my manager. (bị động)<br>I am currently responsible for <u>reviewing</u> the client reports. (V-ing sau giới từ)<br>By Friday, all tasks <u>will have been completed</u>. (tương lai hoàn thành — bị động)"</em></div>
+          </div>
+        </div>
+        <div class="ex-grid" style="margin-top:10px">
+          <div class="ex-card" style="grid-column:1/-1">
+            <span class="tag tg-vocab">Từ vựng — 10 phút cuối</span>
+            <div class="ex-title">Học 10–15 từ vựng TOEIC theo chủ đề hôm nay</div>
+            <div class="ex-steps">
+              <div class="exs"><div class="sd" style="background:var(--vocab)"></div>Vào <a href="https://study4.com/posts/999/tong-hop-chu-de-tu-vung-toeic-thong-dung-ban-can-biet/" target="_blank" style="color:var(--w1);font-weight:600">Study4 — Tổng hợp 600 từ vựng TOEIC</a> → chọn chủ đề phù hợp với bài viết hôm nay</div>
+              <div class="exs"><div class="sd" style="background:var(--vocab)"></div>Học 10–15 từ mới: đọc to từng từ, ghi collocation đi kèm</div>
+              <div class="exs"><div class="sd" style="background:var(--vocab)"></div>Mở file <strong>TOEIC_Vocabulary.xlsx</strong> → sheet Word Form → điền câu ví dụ vừa đặt vào cột "Câu ví dụ"</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- B2 -->
+  <div class="acc">
+    <div class="acc-hd" onclick="tog(this)">
+      <div class="acc-hd-left">
+        <span class="acc-num">Buổi 2</span>
+        <span class="acc-title">Mệnh đề quan hệ · Câu điều kiện · Word Form & Collocation</span>
+      </div>
+      <div class="acc-right">
+        <span class="acc-time">⏱ ~75 phút</span>
+        <span class="tag tg-gram">Ngữ pháp</span>
+        <span class="tag tg-vocab">Từ vựng</span>
+        <span class="tag tg-fill">Điền từ</span>
+        <span class="tag tg-write">Viết</span>
+      </div>
+      <span class="acc-arr">▼</span>
+    </div>
+    <div class="acc-body">
+
+      <div class="asec">
+        <div class="asec-title">📖 Phần 1 — Mệnh đề quan hệ (Relative Clauses) (10 phút)</div>
+        <div class="theory-block">
+          <div class="theory-title">Pattern — chọn đại từ quan hệ đúng trong 5 giây</div>
+          <ul class="rule-list">
+            <li><div class="dot"></div><div><strong>who</strong> → thay thế cho người (person, employee, manager...)<br><span class="rnote">→ "The manager <u>who</u> reviewed the report is very experienced."</span></div></li>
+            <li><div class="dot"></div><div><strong>which</strong> → thay thế cho vật, sự việc, khái niệm<br><span class="rnote">→ "The policy <u>which</u> was introduced last month has improved productivity."</span></div></li>
+            <li><div class="dot"></div><div><strong>that</strong> → thay thế cho cả người lẫn vật (dùng trong mệnh đề quan hệ xác định)<br><span class="rnote">→ "The report <u>that</u> she submitted was approved." · "The employee <u>that</u> joined last week is very capable."</span></div></li>
+            <li><div class="dot"></div><div><strong>whose</strong> → thay thế cho sở hữu (của ai / của cái gì)<br><span class="rnote">→ "The candidate <u>whose</u> resume was selected will be interviewed tomorrow."</span></div></li>
+            <li><div class="dot"></div><div><strong>where</strong> → thay thế cho địa điểm<br><span class="rnote">→ "This is the office <u>where</u> I work." · "The city <u>where</u> the conference is held..."</span></div></li>
+            <li><div class="dot"></div><div><strong>when</strong> → thay thế cho thời gian<br><span class="rnote">→ "I remember the day <u>when</u> the project was launched."</span></div></li>
+          </ul>
+          <div class="codebox">Quy trình làm câu Part 5 dạng relative clause:<br>① Nhìn chỗ trống → đứng sau danh từ chỉ <strong>người/vật/nơi/thời gian</strong>?<br>② Chọn đại từ tương ứng: người → who/that · vật → which/that · nơi → where · thời gian → when · sở hữu → whose<br>③ Chú ý: <em>which/that</em> có thể bỏ qua nếu theo sau là S+V (mệnh đề quan hệ rút gọn)</div>
+        </div>
+        <div class="theory-block">
+          <div class="theory-title">Mệnh đề quan hệ rút gọn — hay gặp trong Part 5/6</div>
+          <ul class="rule-list">
+            <li><div class="dot"></div><div>Rút gọn bằng <strong>V-ing</strong> (chủ động) → thay thế mệnh đề đang diễn ra<br><span class="rnote">→ "The employee <u>handling</u> the project is very efficient." (= who is handling)</span></div></li>
+            <li><div class="dot"></div><div>Rút gọn bằng <strong>V-ed / past participle</strong> (bị động) → thay thế mệnh đề bị động<br><span class="rnote">→ "The report <u>submitted</u> yesterday was approved." (= which was submitted)</span></div></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="asec">
+        <div class="asec-title">📖 Phần 2 — Câu điều kiện (Conditional Sentences) (10 phút)</div>
+        <div class="theory-block">
+          <div class="theory-title">3 loại câu điều kiện thường gặp trong TOEIC — nhận biết bằng pattern</div>
+          <ul class="rule-list">
+            <li><div class="dot"></div><div><strong>Loại 0 — Sự thật hiển nhiên / quy luật:</strong><br>
+              <span style="font-family:monospace;background:var(--card2);padding:2px 6px;border-radius:4px;font-size:12px">If + S + V(s/es), S + V(s/es)</span><br>
+              <span class="rnote">→ "If the temperature rises, the machine shuts down automatically."<br>→ Gặp trong TOEIC: điều kiện kỹ thuật, quy trình vận hành</span></div></li>
+            <li><div class="dot"></div><div><strong>Loại 1 — Điều kiện có thể xảy ra trong tương lai:</strong><br>
+              <span style="font-family:monospace;background:var(--card2);padding:2px 6px;border-radius:4px;font-size:12px">If + S + V(s/es) [hiện tại đơn], S + will + V</span><br>
+              <span class="rnote">→ "If the client approves the proposal, we will begin production next week."<br>→ Gặp trong TOEIC: email trao đổi, thư kinh doanh, thông báo có điều kiện</span></div></li>
+            <li><div class="dot"></div><div><strong>Loại 2 — Điều kiện không có thật ở hiện tại (giả định):</strong><br>
+              <span style="font-family:monospace;background:var(--card2);padding:2px 6px;border-radius:4px;font-size:12px">If + S + V-ed [quá khứ đơn], S + would + V</span><br>
+              <span class="rnote">→ "If we had more funding, we would expand the team immediately."<br>→ Gặp trong TOEIC: ít hơn loại 1, thường trong hội thoại Part 3 hoặc email nội bộ</span></div></li>
+          </ul>
+          <div class="codebox">Quy trình làm câu điều kiện Part 5:<br>① Nhìn vế If → động từ ở thì nào? Hiện tại đơn → loại 1 · Quá khứ đơn → loại 2<br>② Nhìn vế kết quả → loại 1: <strong>will + V</strong> · loại 2: <strong>would + V</strong><br>③ Bẫy hay gặp: dùng "will" trong vế If → SAI · vế kết quả loại 1 không dùng "would" → SAI<br><br>Ngoài ra hay gặp: <strong>unless</strong> = if...not → "Unless he submits the report, the project will be delayed."<br><strong>provided that / as long as</strong> = miễn là · <strong>in case</strong> = phòng trường hợp</div>
+        </div>
+      </div>
+
+      <div class="asec">
+        <div class="asec-title">📖 Phần 3 — Word Form & Collocation (10 phút)</div>
+        <div class="theory-block">
+          <div class="theory-title">Không học thuộc định nghĩa — học bằng cách dùng từ trong câu thật</div>
+          <ul class="rule-list">
+            <li><div class="dot"></div><div>Với mỗi từ mới, đặt câu cho <strong>từng dạng</strong>: danh từ · động từ · tính từ · trạng từ — càng gắn với cuộc sống thật càng tốt<br><span class="rnote">manage (v): "I manage a team of five people."<br>management (n): "Good management is key to a successful project."<br>managerial (adj): "She has strong managerial experience."</span></div></li>
+            <li><div class="dot"></div><div>Nhờ đặt câu → nhớ dạng từ qua <strong>ngữ cảnh</strong>, không nhớ máy móc qua bảng<br><span class="rnote">→ Lần sau gặp "managerial" trong đề → não nhớ lại câu mình đã viết → chọn đúng từ loại ngay</span></div></li>
+            <li><div class="dot"></div>Học đuôi từ để đoán nhanh khi gặp từ lạ trong đề:<div style="margin-top:5px"><div class="codebox">Danh từ: -tion/-sion · -ment · -ness · -ity · -ance/-ence · -er/-or<br>Tính từ: -ful · -less · -ous · -ive · -al · -able · -ent/-ant<br>Trạng từ: -ly · Động từ: -ize · -ify · -en · -ate</div></div></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="asec">
+        <div class="asec-title">📖 Phần 4 — Collocation: học bằng cách đặt câu với cụm từ (5 phút)</div>
+        <div class="theory-block">
+          <div class="theory-title">Không học danh sách — học bằng cách đặt câu dùng đúng cụm từ đó</div>
+          <ul class="rule-list">
+            <li><div class="dot"></div><div>Khi gặp collocation mới → đặt ngay 1 câu có cụm đó, dùng tình huống quen thuộc<br><span class="rnote">"meet a deadline" → "We need to meet the deadline for the quarterly report."<br>"hold a meeting" → "My manager holds a meeting every Monday morning."</span></div></li>
+            <li><div class="dot"></div><div>Tại sao đặt câu tốt hơn học thuộc danh sách?<br><span class="rnote">→ Não nhớ qua hình ảnh và ngữ cảnh — câu mình tự viết dễ nhớ hơn câu sách viết sẵn<br>→ Khi làm bài gặp "meet a ___" → não gợi lại câu đã viết → chọn "deadline" tự nhiên</span></div></li>
+            <li><div class="dot"></div><div>3 nhóm collocation hay gặp trong TOEIC:<br><span class="rnote"><strong>Động từ + Danh từ:</strong> submit a report · meet a deadline · hold a meeting · sign a contract · place an order · conduct a survey · reach an agreement<br><strong>Tính từ + Danh từ:</strong> annual report · significant increase · potential client · limited budget · detailed instructions<br><strong>Danh từ + Giới từ:</strong> increase in revenue · experience in management · access to information</span></div></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="asec">
+        <div class="asec-title">✏️ Bài tập hôm nay</div>
+        <div class="ex-grid" style="grid-template-columns:1fr">
+          <div class="ex-card">
+            <span class="tag tg-gram">Bài tập 100 câu — 40 phút</span>
+            <div class="ex-title">100 câu Part 5 — Mệnh đề quan hệ · Câu điều kiện</div>
+            <div class="ex-steps">
+              <div class="exs"><div class="sd" style="background:var(--w1)"></div>Mở file <strong>TOEIC_Tuan1_BaiTap_Day_Du.xlsx</strong> → sheet "Buổi 2" → làm đúng 100 câu, bấm giờ 40 phút</div>
+              <div class="exs"><div class="sd" style="background:var(--w1)"></div>Phân bổ: ~50 câu mệnh đề quan hệ · ~50 câu câu điều kiện</div>
+              <div class="exs"><div class="sd" style="background:var(--w1)"></div>Trước mỗi câu: ghi loại câu (relative clause / conditional type 0/1/2) vào lề → mới chọn đáp án</div>
+              <div class="exs"><div class="sd" style="background:var(--w1)"></div>Chấm điểm bằng sheet "Đáp án — Buổi 2" trong cùng file · câu sai → ghi ngay vào sheet Error Log trong <strong>TOEIC_Vocabulary.xlsx</strong></div>
+            </div>
+            <div class="ex-eg"><em>"The employee ______ submitted the report is highly skilled." → who/that ✓<br>"If the manager ______ the plan, we will proceed." → approves (hiện tại đơn → loại 1) ✓</em></div>
+          </div>
+        </div>
+        <div class="ex-grid" style="margin-top:10px">
+          <div class="ex-card" style="grid-column:1/-1">
+            <span class="tag tg-write">Bài viết — 15 phút</span>
+            <div class="topic-pill tp-w" style="background:#fef3c7;color:#92400e;border-color:#fcd34d">📌 Chủ đề xuyên suốt tuần 1 — Buổi 2/3</div>
+            <div class="ex-title">Mô tả đồng nghiệp hoặc sếp của bạn</div>
+            <div class="ex-steps">
+              <div class="exs"><div class="sd" style="background:var(--write)"></div>Viết 8–10 câu giới thiệu 1–2 người bạn làm việc cùng hàng ngày: tính cách, vai trò, cách họ làm việc</div>
+              <div class="exs"><div class="sd" style="background:var(--write)"></div>Bắt buộc: ít nhất <strong>1 mệnh đề quan hệ</strong> (who/which/whose) + <strong>1 câu điều kiện</strong> (loại 1 hoặc 2)</div>
+              <div class="exs"><div class="sd" style="background:var(--write)"></div>Bắt buộc dùng lại những từ và cụm đã đặt câu trong bài tập bên trên</div>
+              <div class="exs"><div class="sd" style="background:var(--write)"></div>Gạch chân: mệnh đề quan hệ (xanh) · câu điều kiện (đỏ) · word form (đen)</div>
+            </div>
+            <div class="ex-eg"><em>"My manager, <u>who oversees</u> our entire department, is known for her strong <u>managerial</u> skills. She is the person <u>whose</u> feedback has helped me improve the most. <u>If she approves</u> a proposal, the team <u>will implement</u> it immediately. Her <u>communication</u> style is always clear and <u>effective</u>."</em><br><span style="font-size:11.5px;color:var(--txt3);font-style:italic;display:block;margin-top:5px">Mệnh đề quan hệ (xanh): who oversees · whose · Word form (đen): managerial, communication, effective · Điều kiện loại 1 (đỏ): If she approves → will implement</span></div>
+          </div>
+        </div>
+        <div class="ex-grid" style="margin-top:10px">
+          <div class="ex-card" style="grid-column:1/-1">
+            <span class="tag tg-vocab">Từ vựng — 10 phút cuối</span>
+            <div class="ex-title">Học 10–15 từ vựng TOEIC theo chủ đề hôm nay</div>
+            <div class="ex-steps">
+              <div class="exs"><div class="sd" style="background:var(--vocab)"></div>Vào <a href="https://study4.com/posts/999/tong-hop-chu-de-tu-vung-toeic-thong-dung-ban-can-biet/" target="_blank" style="color:var(--w1);font-weight:600">Study4 — Tổng hợp 600 từ vựng TOEIC</a> → chọn chủ đề Nhân sự hoặc Văn phòng</div>
+              <div class="exs"><div class="sd" style="background:var(--vocab)"></div>Học 10–15 từ mới: đọc to, ghi collocation đi kèm</div>
+            </div>
+          </div>
+        </div>
+
+    </div>
+  </div>
+
+  <!-- B3 -->
+  <div class="acc">
+    <div class="acc-hd" onclick="tog(this)">
+      <div class="acc-hd-left">
+        <span class="acc-num">Buổi 3</span>
+        <span class="acc-title">Cấu trúc so sánh · Liên từ & Giới từ · Luyện Part 5 tổng lực</span>
+      </div>
+      <div class="acc-right">
+        <span class="acc-time">⏱ ~70 phút</span>
+        <span class="tag tg-gram">Ngữ pháp</span>
+        <span class="tag tg-fill">Điền từ</span>
+        <span class="tag tg-write">Viết</span>
+      </div>
+      <span class="acc-arr">▼</span>
+    </div>
+    <div class="acc-body">
+
+      <div class="asec">
+        <div class="asec-title">📖 Phần 1 — Cấu trúc so sánh (15 phút)</div>
+        <div class="theory-block">
+          <div class="theory-title">① So sánh hơn (Comparative)</div>
+          <ul class="rule-list">
+            <li><div class="dot"></div><div><strong>Tính từ/trạng từ ngắn (1 âm tiết):</strong> thêm <strong>-er + than</strong><br><span class="rnote">→ "This method is <u>faster than</u> the old one." · "She works <u>harder than</u> her colleagues."</span></div></li>
+            <li><div class="dot"></div><div><strong>Tính từ/trạng từ dài (2+ âm tiết):</strong> thêm <strong>more/less + than</strong><br><span class="rnote">→ "This approach is <u>more efficient than</u> the previous one." · "The new system is <u>less complicated than</u> expected."</span></div></li>
+            <li><div class="dot"></div><div><strong>Bất quy tắc (phải nhớ thuộc):</strong> good → better · bad → worse · far → farther/further · many/much → more · little → less</div></li>
+          </ul>
+          <div class="codebox">⚠️ Bẫy thường gặp: "more faster" · "more better" → SAI<br>Không bao giờ dùng "more" trước tính từ đã có đuôi -er<br>Đúng: faster · better · cheaper (KHÔNG thêm 'more' trước)</div>
+        </div>
+        <div class="theory-block">
+          <div class="theory-title">② So sánh nhất (Superlative)</div>
+          <ul class="rule-list">
+            <li><div class="dot"></div><div><strong>Tính từ/trạng từ ngắn:</strong> <strong>the + -est</strong><br><span class="rnote">→ "This is <u>the fastest</u> route to the office." · "She is <u>the youngest</u> manager in the company."</span></div></li>
+            <li><div class="dot"></div><div><strong>Tính từ/trạng từ dài:</strong> <strong>the most/least</strong><br><span class="rnote">→ "This is <u>the most effective</u> strategy we have tried." · "It is <u>the least expensive</u> option."</span></div></li>
+            <li><div class="dot"></div><div><strong>Bất quy tắc:</strong> good → the best · bad → the worst · many/much → the most · little → the least</div></li>
+          </ul>
+        </div>
+        <div class="theory-block">
+          <div class="theory-title">③ So sánh bằng — as...as</div>
+          <ul class="rule-list">
+            <li><div class="dot"></div><div><strong>Khẳng định:</strong> as + adj/adv + as → bằng nhau<br><span class="rnote">→ "The new branch is <u>as profitable as</u> the main office."</span></div></li>
+            <li><div class="dot"></div><div><strong>Phủ định:</strong> not as + adj/adv + as → kém hơn<br><span class="rnote">→ "The results were <u>not as impressive as</u> last quarter."</span></div></li>
+            <li><div class="dot"></div><div><strong>Cụm cố định hay gặp trong TOEIC:</strong> as soon as possible (ASAP) · as long as · as well as · as a result of</div></li>
+          </ul>
+        </div>
+        <div class="theory-block">
+          <div class="theory-title">④ Cấu trúc đặc biệt hay gặp trong TOEIC</div>
+          <ul class="rule-list">
+            <li><div class="dot"></div><div><strong>the + comparative, the + comparative</strong> → càng... càng...<br><span class="rnote">→ "<u>The more</u> you practice, <u>the better</u> your results will be."<br>→ "<u>The sooner</u> we start, <u>the faster</u> we can finish."</span></div></li>
+            <li><div class="dot"></div><div><strong>more/fewer/less + danh từ + than</strong><br><span class="rnote">→ "We have <u>more employees than</u> last year." (đếm được → more/fewer)<br>→ "We spend <u>less time</u> on administrative tasks." (không đếm được → less, KHÔNG dùng fewer)</span></div></li>
+            <li><div class="dot"></div><div><strong>considerably / significantly / slightly + comparative</strong> → bổ nghĩa mức độ<br><span class="rnote">→ "The new system is <u>considerably more efficient than</u> the old one."<br>→ "Costs are <u>slightly higher than</u> anticipated." (KHÔNG dùng 'very' trước -er)</span></div></li>
+          </ul>
+          <div class="codebox">Quy trình làm câu so sánh Part 5:<br>① Nhìn 4 đáp án → có -er / more / most / as...as không? → câu so sánh<br>② Đếm âm tiết: 1 âm tiết → -er/-est · 2+ âm tiết → more/most<br>③ Nhìn từ theo sau: 'than' → so sánh hơn · không có 'than' + có 'the' → so sánh nhất</div>
+        </div>
+      </div>
+
+      <div class="asec">
+        <div class="asec-title">📖 Phần 2 — Liên từ & Giới từ (10 phút)</div>
+        <div class="theory-block">
+          <div class="theory-title">Liên từ — điểm hay sai nhất trong Part 5</div>
+          <ul class="rule-list">
+            <li><div class="dot"></div><div><strong>although / even though</strong> + Chủ ngữ + Động từ → mặc dù...<br><span class="rnote">→ "Although the report was late, the client accepted it."</span></div></li>
+            <li><div class="dot"></div><div><strong>despite / in spite of</strong> + Cụm danh từ → mặc dù... (KHÔNG có chủ-vị sau)<br><span class="rnote">→ "Despite the delay, the project succeeded."</span></div></li>
+            <li><div class="dot"></div><div><strong>however / therefore / moreover</strong> → đứng đầu câu, có dấu phẩy sau<br><span class="rnote">→ "The budget was limited. However, we completed the project."</span></div></li>
+            <li><div class="dot"></div><div><strong>because / since</strong> + Chủ-vị · <strong>due to / because of</strong> + cụm danh từ<br><span class="rnote">→ "because it rained" (có chủ-vị) · "due to the rain" (chỉ danh từ) — không lẫn lộn</span></div></li>
+          </ul>
+        </div>
+        <div class="theory-block">
+          <div class="theory-title">Giới từ cụm cố định — học theo nhóm</div>
+          <ul class="rule-list">
+            <li><div class="dot"></div><div><strong>Sau tính từ:</strong> responsible for · interested in · familiar with · capable of · satisfied with · concerned about</div></li>
+            <li><div class="dot"></div><div><strong>Chỉ nguyên nhân/nhượng bộ:</strong> due to · because of · in spite of · regardless of · in addition to · instead of · prior to</div></li>
+          </ul>
+        </div>
+      </div>
+      <div class="asec">
+        <div class="asec-title">✏️ Bài tập hôm nay — Luyện tổng hợp 5 dạng</div>
+        <div class="ex-grid">
+          <div class="ex-card">
+            <span class="tag tg-fill">Bài tập 100 câu — 40 phút</span>
+            <div class="ex-title">100 câu Part 5 — So sánh · Liên từ & Giới từ — bấm giờ đúng 40 phút</div>
+            <div class="ex-steps">
+              <div class="exs"><div class="sd" style="background:var(--fill)"></div>Mở file <strong>TOEIC_Tuan1_BaiTap_Day_Du.xlsx</strong> → sheet "Buổi 3" → làm đúng 100 câu</div>
+              <div class="exs"><div class="sd" style="background:var(--fill)"></div>Phân bổ: ~48 câu so sánh (hơn/nhất/bằng) · ~50 câu liên từ & giới từ</div>
+              <div class="exs"><div class="sd" style="background:var(--fill)"></div>Quy trình: nhìn 4 đáp án → xác định dạng câu → nhìn vị trí → chọn</div>
+              <div class="exs"><div class="sd" style="background:var(--fill)"></div>Câu quá 40 giây → đánh dấu, bỏ qua, làm tiếp · chấm điểm bằng sheet "Đáp án — Buổi 3" trong cùng file</div>
+            </div>
+            <div class="ex-eg" style="font-size:12px">Error log: câu hỏi → dạng câu → mình chọn gì → đáp án đúng → quy tắc cần nhớ</div>
+          </div>
+          <div class="ex-card">
+            <span class="tag tg-sum">Bài tóm tắt — 20 phút</span>
+            <div class="topic-pill tp-s">📄 Tóm tắt passage Part 7 thật — không nhìn lại khi viết</div>
+            <div class="ex-title">Đọc → đóng lại → viết đúng 2 câu · dưới 25 từ</div>
+            <div class="ex-steps">
+              <div class="exs"><div class="sd" style="background:var(--sum)"></div>Nguồn bài đọc: <a href="https://study4.com/tests/228/practice/?part=763" target="_blank" style="color:var(--sum);font-weight:600">Study4 — ETS Official Test 228 · Part 7</a></div>
+              <div class="exs"><div class="sd" style="background:var(--sum)"></div>Đọc các passage từ <strong>câu 151 đến câu 167</strong></div>
+              <div class="exs"><div class="sd" style="background:var(--sum)"></div>Mỗi passage: đọc kỹ 1 lần → đóng lại → viết <strong>đúng 2 câu, tổng dưới 25 từ</strong></div>
+              <div class="exs"><div class="sd" style="background:var(--sum)"></div>Câu 1: chủ đề chính của bài là gì · Câu 2: thông tin quan trọng nhất hoặc hành động cần làm</div>
+              <div class="exs"><div class="sd" style="background:var(--sum)"></div>Dùng lời mình hoàn toàn — không chép câu từ bài gốc</div>
+            </div>
+            <div class="ex-eg"><em>Ví dụ tóm tắt đúng format (2 câu · 22 từ):<br>"The company is relocating its office to a new address in December. Employees must update client records and coordinate with their managers beforehand."</em></div>
+          </div>
+        </div>
+        <div class="ex-grid" style="margin-top:10px">
+          <div class="ex-card" style="grid-column:1/-1">
+            <span class="tag tg-vocab">Ôn từ vựng tổng hợp — 10 phút cuối</span>
+            <div class="ex-title">Ôn lại file Excel + học từ mới</div>
+            <div class="ex-steps">
+              <div class="exs"><div class="sd" style="background:var(--vocab)"></div>Mở <strong>TOEIC_Vocabulary.xlsx</strong> → ôn lại sheet Word Form — nhớ ngay dạng từ khi nhìn cột là đạt</div>
+              <div class="exs"><div class="sd" style="background:var(--vocab)"></div>Học thêm 5–10 từ mới trên <a href="https://study4.com/posts/999/tong-hop-chu-de-tu-vung-toeic-thong-dung-ban-can-biet/" target="_blank" style="color:var(--w1);font-weight:600">Study4 — Tổng hợp 600 từ vựng TOEIC</a></div>
+              <div class="exs"><div class="sd" style="background:var(--vocab)"></div>Từ mới và hay gặp → ghi thêm vào sheet Word Form hoặc Collocation trong file Excel</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="res-title">Tài liệu tham khảo — Tuần 1</div>
+  <div class="res-grid">
+    <a class="res-card" href="https://study4.com/tests/228/practice/?part=757" target="_blank"><div class="rc-cat" style="color:var(--w1)">Luyện Part 5 tổng hợp</div><div class="rc-name">Study4 — Part 5 Practice</div><div class="rc-desc">Kho bài Part 5 phân loại theo dạng: thì · bị động · word form · conjunction · preposition · có giải thích tiếng Việt từng câu</div><div class="rc-url">study4.com</div></a>
+    <a class="res-card" href="https://toeicacademy.com/toeic-part-5-prepositions-conjunctions/" target="_blank"><div class="rc-cat" style="color:var(--w1)">Giới từ & Liên từ</div><div class="rc-name">TOEICacademy — Prepositions & Conjunctions</div><div class="rc-desc">20 câu Part 5 tập trung giới từ và liên từ — dạng cần ưu tiên drill nhất tuần 1</div><div class="rc-url">toeicacademy.com</div></a>
+    <div class="res-card"><div class="rc-cat" style="color:var(--w1)">File từ vựng</div><div class="rc-name">TOEIC_Vocabulary.xlsx</div><div class="rc-desc">File Excel đính kèm — 4 sheet: Word Form · Collocation · Error Log · Theo Dõi Điểm</div><div class="rc-url">File đính kèm</div></div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════ TUẦN 2 ══════════ -->
+<div class="wpanel" id="w2">
+  <div class="wk-intro">
+    <span class="wbadge wb2">Tuần 2 · 3 buổi</span>
+    <h2>Chiến lược làm bài & Luyện tóm tắt</h2>
+    <p>Giữ nguyên cấu trúc tuần 1: điền từ ngữ pháp trước → viết sau. Phần viết đổi thành đọc passage và viết tóm tắt bằng lời mình — luyện thẳng kỹ năng đọc hiểu cho Part 7. Passage dài dần qua 3 buổi.</p>
+  </div>
+
+  <!-- B4 -->
+  <div class="acc">
+    <div class="acc-hd" onclick="tog(this)">
+      <div class="acc-hd-left">
+        <span class="acc-num">Buổi 4</span>
+        <span class="acc-title">Chiến lược nghe — Cả 4 Part Listening</span>
+      </div>
+      <div class="acc-right">
+        <span class="acc-time">⏱ ~75 phút</span>
+        <span class="tag tg-listen">Part 1</span>
+        <span class="tag tg-listen">Part 2</span>
+        <span class="tag tg-listen">Part 3</span>
+        <span class="tag tg-listen">Part 4</span>
+      </div>
+      <span class="acc-arr">▼</span>
+    </div>
+    <div class="acc-body open">
+
+      <div class="asec">
+        <div class="asec-title">🎧 Part 1 — Mô tả hình ảnh (6 câu)</div>
+        <div class="theory-block">
+          <div class="theory-title">Chiến lược: Không đọc trước đáp án — tập trung nhìn ảnh và nghe</div>
+          <ul class="rule-list">
+            <li><div class="dot"></div><strong>Trước khi nghe:</strong> nhìn kỹ ảnh trong 2–3 giây — xác định chủ thể chính (người, vật, địa điểm) và hành động đang diễn ra</li>
+            <li><div class="dot"></div><strong>Khi nghe:</strong> mỗi đáp án mô tả 1 phần của ảnh — loại trừ ngay khi nghe thấy điều sai với ảnh</li>
+            <li><div class="dot"></div><strong>Bẫy hay gặp:</strong> đáp án dùng đúng từ trong ảnh nhưng mô tả sai hành động hoặc đối tượng<br><span class="rnote">→ Ảnh có người đang đọc sách, đáp án: "She is writing in a book." — dùng từ "book" nhưng hành động sai</span></li>
+            <li><div class="dot"></div><strong>Lưu ý:</strong> Part 1 tương đối dễ, không dành quá nhiều thời gian lo lắng cho phần này</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="asec">
+        <div class="asec-title">🎧 Part 2 — Hỏi & đáp (25 câu)</div>
+        <div class="theory-block">
+          <div class="theory-title">Chiến lược: Nghe từ đầu câu hỏi để xác định dạng, sau đó loại trừ</div>
+          <ul class="rule-list">
+            <li><div class="dot"></div><div><strong>Bảng nhận diện nhanh theo từ đầu tiên:</strong></div></li>
+          </ul>
+          <div class="codebox">Where → đáp án chỉ địa điểm · <strong>loại ngay</strong> đáp án chỉ thời gian hoặc lý do<br>When → đáp án chỉ thời gian · loại ngay đáp án chỉ địa điểm<br>Who → đáp án chỉ người/chức vụ/tên<br>Why → đáp án bắt đầu bằng because / to + V / due to<br>How long/How many/How much → đáp án có số hoặc khoảng thời gian<br>How → đáp án mô tả cách thức<br>What/Which → đáp án cụ thể về thứ/lựa chọn<br>Is/Are/Do/Did/Have/Will → câu Yes/No → đáp án có Yes/No <strong>hoặc câu trả lời gián tiếp</strong></div>
+          <ul class="rule-list">
+            <li><div class="dot"></div><div><strong>Bẫy đặc biệt — Yes/No question:</strong><br>
+              <span class="rnote">→ "Would you like to join us?" — đáp án đúng thường <strong>không phải Yes/No thẳng</strong>, mà là gợi ý hoặc lý do từ chối:<br>"I have a meeting at 3." · "That sounds great." · "Let me check my schedule."</span><br>
+              <span class="rnote">→ "Didn't you finish the report?" — đáp án thường là thông tin mới, không phải "Yes I did/No I didn't":<br>"I sent it this morning." · "I'm still working on it."</span>
+            </div></li>
+            <li><div class="dot"></div><strong>Bẫy từ lặp lại:</strong> đáp án dùng đúng từ trong câu hỏi nhưng không trả lời đúng → loại ngay<br><span class="rnote">→ "Where is the meeting?" — đáp án: "The meeting was very productive." → dùng "meeting" nhưng không trả lời chỗ nào</span></li>
+            <li><div class="dot"></div><strong>Khi không nghe kịp:</strong> loại 1–2 đáp án rõ ràng sai, chọn trong số còn lại — không để trống</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="asec">
+        <div class="asec-title">🎧 Part 3 — Hội thoại (39 câu · 13 bộ × 3 câu)</div>
+        <div class="theory-block">
+          <div class="theory-title">Chiến lược: Đọc câu hỏi trước khi nghe + phân loại dạng câu ngay khi đọc</div>
+          <ul class="rule-list">
+            <li><div class="dot"></div><div><strong>Trước khi nghe:</strong> dùng 8 giây chờ giữa các bộ để <strong>scan câu hỏi số 2</strong> (câu giữa) — đây là câu detail thường khó nhất, scan trước giúp não chú ý đúng điểm khi nghe<br><span class="rnote">Không cần scan cả 3 câu — câu 1 thường là main topic (nghe câu đầu là ra), câu 3 thường là next action (nghe đoạn cuối là ra)</span></div></li>
+          </ul>
+          <div class="codebox">5 dạng câu hỏi Part 3/4 — cách nghe khác nhau:<br><br>
+① <strong>Main topic/purpose</strong> → nghe câu đầu tiên của hội thoại là có ngay<br>&nbsp;&nbsp;&nbsp;"What are the speakers discussing?" · "What is the purpose of the call?"<br><br>
+② <strong>Detail/fact</strong> → scan keyword từ câu hỏi trước khi nghe, nghe đến khi gặp keyword<br>&nbsp;&nbsp;&nbsp;"What time does...?" · "How much does it cost?" · "Where will...?"<br><br>
+③ <strong>Inference/Implication</strong> → nghe <em>tone + context</em>, không phải từ ngữ trực tiếp<br>&nbsp;&nbsp;&nbsp;"What does the man imply?" · "What can be inferred about...?"<br><br>
+④ <strong>Next action</strong> → thường nằm ở <em>2 câu cuối</em> hội thoại, nghe kỹ đoạn cuối<br>&nbsp;&nbsp;&nbsp;"What will the woman do next?" · "What does the man suggest?"<br><br>
+⑤ <strong>Graphic</strong> (dạng mới, hay sai nhất) → đọc graphic TRƯỚC khi audio phát — tìm điểm khác biệt giữa các lựa chọn trong graphic<br>&nbsp;&nbsp;&nbsp;"Look at the graphic. Which...?" → audio sẽ hint gián tiếp, không nói thẳng đáp án</div>
+          <ul class="rule-list">
+            <li><div class="dot"></div><strong>Sau khi nghe xong 1 bộ:</strong> chọn ngay — không quay lại suy nghĩ vì audio tiếp tục chạy</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="asec">
+        <div class="asec-title">🎧 Part 4 — Bài nói độc thoại (30 câu · 10 bài × 3 câu)</div>
+        <div class="theory-block">
+          <div class="theory-title">Chiến lược: Tương tự Part 3 — đọc câu hỏi trước, nghe có mục tiêu</div>
+          <ul class="rule-list">
+            <li><div class="dot"></div><div><strong>Trước khi nghe:</strong> <strong>scan câu hỏi số 2</strong> trong 8 giây chờ — câu detail nằm giữa thường là thông tin cụ thể khó bắt nhất<br><span class="rnote">Câu 1 (main purpose) → nghe câu đầu bài nói là ra · Câu 3 (next action) → nghe đoạn cuối là ra · Câu 2 (detail) → phải biết trước cần nghe gì</span></div></li>
+            <li><div class="dot"></div><div><strong>Nhận diện loại bài nói để định hướng nghe:</strong><br>
+              <span class="rnote">Thông báo (announcement) → nghe: sự kiện gì, khi nào, ai cần làm gì</span><br>
+              <span class="rnote">Quảng cáo (advertisement) → nghe: sản phẩm/dịch vụ gì, ưu đãi gì, liên hệ thế nào</span><br>
+              <span class="rnote">Tin nhắn thoại (voicemail) → nghe: người gọi là ai, muốn gì, cần phản hồi thế nào</span><br>
+              <span class="rnote">Hướng dẫn tham quan (tour/talk) → nghe: địa điểm, lịch trình, quy định</span>
+            </div></li>
+            <li><div class="dot"></div><strong>Câu hỏi "What will listeners be asked to do?"</strong> → luôn nằm ở cuối bài nói — nghe kỹ đoạn cuối</li>
+            <li><div class="dot"></div><strong>Không cần hiểu 100%:</strong> bắt được thông tin liên quan đến câu hỏi là đủ để chọn đúng</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="asec">
+        <div class="asec-title">✏️ Bài tập hôm nay — Luyện chiến lược cả 4 Part</div>
+        <div class="ex-grid">
+          <div class="ex-card">
+            <span class="tag tg-listen">Part 1 & 2 — 20 phút</span>
+            <div class="ex-title">Part 1: 6 câu · Part 2: 15 câu</div>
+            <div class="ex-steps">
+              <div class="exs"><div class="sd" style="background:var(--w4)"></div>Part 1: nhìn ảnh 2 giây trước, nghe và loại trừ ngay — không đọc đáp án trước</div>
+              <div class="exs"><div class="sd" style="background:var(--w4)"></div>Part 2: ghi ra lề chữ cái đầu của dạng câu hỏi (W/H/YN) trước khi chọn đáp án</div>
+              <div class="exs"><div class="sd" style="background:var(--w4)"></div>Sau khi làm: nghe lại câu sai, đọc transcript — ghi lý do sai (nghe nhầm từ? không hiểu câu hỏi?)</div>
+            </div>
+          </div>
+          <div class="ex-card">
+            <span class="tag tg-listen">Part 3 & 4 — 30 phút</span>
+            <div class="ex-title">Part 3: 4 bộ · Part 4: 3 bài</div>
+            <div class="ex-steps">
+              <div class="exs"><div class="sd" style="background:var(--w4)"></div>Bắt buộc: dùng 8 giây chờ scan câu hỏi số 2 (câu giữa) trước mỗi bộ — câu detail khó bắt nhất, cần biết trước</div>
+              <div class="exs"><div class="sd" style="background:var(--w4)"></div>Part 4: trước khi nghe, xác định luôn đây là loại bài nói gì (thông báo/quảng cáo/hướng dẫn…)</div>
+              <div class="exs"><div class="sd" style="background:var(--w4)"></div>Sau mỗi bộ sai: nghe lại lần 2 → mở transcript → nghe lần 3 vừa nghe vừa đọc theo</div>
+              <div class="exs"><div class="sd" style="background:var(--w4)"></div>Ghi lý do sai từng câu: không kịp đọc câu hỏi · nghe nhầm từ · không hiểu ngữ cảnh</div>
+            </div>
+          </div>
+        </div>
+        <div class="ex-grid" style="margin-top:10px">
+          <div class="ex-card" style="grid-column:1/-1">
+            <span class="tag tg-vocab">Từ vựng — 10 phút cuối</span>
+            <div class="ex-title">Học từ vựng TOEIC theo chủ đề Thông báo & Sự kiện</div>
+            <div class="ex-steps">
+              <div class="exs"><div class="sd" style="background:var(--vocab)"></div>Vào <a href="https://study4.com/posts/999/tong-hop-chu-de-tu-vung-toeic-thong-dung-ban-can-biet/" target="_blank" style="color:var(--w2);font-weight:600">Study4 — Tổng hợp 600 từ vựng TOEIC</a> → chọn chủ đề liên quan đến Listening hôm nay</div>
+              <div class="exs"><div class="sd" style="background:var(--vocab)"></div>Học 10–15 từ mới · đọc to từng từ · ghi collocation vào <strong>TOEIC_Vocabulary.xlsx</strong> sheet Collocation</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="acc">
+    <div class="acc-hd" onclick="tog(this)">
+      <div class="acc-hd-left">
+        <span class="acc-num">Buổi 5</span>
+        <span class="acc-title">Chiến lược đọc — Cả 3 Part Reading</span>
+      </div>
+      <div class="acc-right">
+        <span class="acc-time">⏱ ~80 phút</span>
+        <span class="tag tg-read">Part 5</span>
+        <span class="tag tg-read">Part 6</span>
+        <span class="tag tg-read">Part 7</span>
+      </div>
+      <span class="acc-arr">▼</span>
+    </div>
+    <div class="acc-body">
+
+      <div class="asec">
+        <div class="asec-title">📖 Part 5 — Điền từ vào câu (30 câu · mục tiêu 20 phút)</div>
+        <div class="theory-block">
+          <div class="theory-title">Chiến lược: Nhận dạng dạng câu trong 5 giây trước khi đọc câu</div>
+          <ul class="rule-list">
+            <li><div class="dot"></div><div><strong>Bước 1 — Nhìn 4 đáp án trước, không đọc câu trước:</strong><br>
+              <span class="rnote">4 đáp án là 4 dạng từ loại khác nhau (danh từ/động từ/tính từ/trạng từ) → câu vị trí từ loại</span><br>
+              <span class="rnote">4 đáp án là cùng 1 động từ chia khác nhau → câu thì/bị động</span><br>
+              <span class="rnote">4 đáp án là giới từ hoặc liên từ → câu giới từ/liên từ</span><br>
+              <span class="rnote">4 đáp án là 4 từ khác nhau về nghĩa → câu từ vựng (collocation)</span>
+            </div></li>
+            <li><div class="dot"></div><strong>Bước 2 — Nhìn vào chỗ trống trong câu:</strong> áp dụng đúng quy tắc của dạng câu đã xác định</li>
+            <li><div class="dot"></div><strong>Bước 3 — Chọn đáp án:</strong> tối đa 40 giây/câu — câu không chắc → đánh dấu, bỏ qua, làm tiếp</li>
+          </ul>
+          <div class="codebox">Thứ tự xử lý: nhìn đáp án → xác định dạng câu → nhìn chỗ trống → chọn<br><em>Không đọc cả câu từ đầu rồi mới nhìn đáp án — mất thời gian và dễ bị nhiễu</em></div>
+        </div>
+      </div>
+
+      <div class="asec">
+        <div class="asec-title">📖 Part 6 — Điền vào đoạn văn (16 câu · 4 đoạn · mục tiêu 12 phút)</div>
+        <div class="theory-block">
+          <div class="theory-title">Chiến lược: Phân loại câu hỏi trước khi điền — mỗi loại xử lý khác nhau</div>
+          <ul class="rule-list">
+            <li><div class="dot"></div><div><strong>Loại G (Grammar — ngữ pháp):</strong> 4 đáp án là các dạng ngữ pháp khác nhau<br>→ Làm như Part 5, không cần đọc cả đoạn<br><span class="rnote">Ví dụ: was sent / has been sent / will send / sends</span></div></li>
+            <li><div class="dot"></div><div><strong>Loại V (Vocab — từ vựng):</strong> 4 đáp án là 4 từ khác nghĩa<br>→ Đọc câu trước và câu sau chỗ trống để hiểu ngữ cảnh<br><span class="rnote">Ví dụ: announce / confirm / suggest / request</span></div></li>
+            <li><div class="dot"></div><div><strong>Loại I (Insert sentence — chèn câu):</strong> chọn 1 câu hoàn chỉnh để điền vào<br>→ Đọc cả đoạn, chú ý từ nối (however/therefore/in addition) đầu câu sau<br><span class="rnote">Câu chèn phải kết nối được với câu trước và câu sau về nội dung</span></div></li>
+            <li><div class="dot"></div><div><strong>Loại L (Logic/Cohesion — mạch ý):</strong> dạng khó nhất — cần hiểu toàn đoạn · hay sai nhất</div></li>
+          </ul>
+          <div class="codebox">Mẹo: Ghi chữ G/V/I/L vào lề bên trái mỗi câu Part 6 → biết ngay cần đọc bao nhiêu để điền</div>
+        </div>
+        <div class="theory-block">
+          <div class="theory-title">3 bước xử lý câu Loại L — loại trừ được 2-3 đáp án ngay mà không cần đọc hết đoạn</div>
+          <div class="codebox"><strong>Bước 1 — Kiểm tra pronoun reference:</strong><br>Đại từ (he/she/they/it/this/these) trong đáp án phải khớp với danh từ đã xuất hiện trước đó trong đoạn<br>→ Ví dụ: câu trước nói về "the new policy" → đáp án có "It will..." (it = policy ✓) · đáp án có "They will..." (they = policy ✗ loại ngay)<br><br><strong>Bước 2 — Kiểm tra tense consistency:</strong><br>Thì trong đáp án phải nhất quán với toàn đoạn<br>→ Đoạn dùng tương lai (will+V) → đáp án không tự nhiên dùng hiện tại hoàn thành → loại<br><br><strong>Bước 3 — Kiểm tra logic flow:</strong><br>Câu trước nói gì → câu blank phải tiếp nối hợp lý → câu sau phản hồi thế nào<br>→ Câu trước: vấn đề · Câu blank: giải pháp ✓ &nbsp;·&nbsp; Câu trước: điều kiện · Câu blank: kết quả ✓<br>→ Chú ý liên từ đầu câu sau: "Therefore" → câu blank là nguyên nhân · "However" → câu blank là ý tương phản</div>
+        </div>
+      </div>
+
+      <div class="asec">
+        <div class="asec-title">📖 Part 7 — Đọc hiểu (54 câu · mục tiêu 43 phút)</div>
+        <div class="theory-block">
+          <div class="theory-title">Chiến lược: Đọc câu hỏi trước — scan theo keyword — không đọc cả bài</div>
+          <ul class="rule-list">
+            <li><div class="dot"></div><div><strong>Quy trình chuẩn mỗi bài:</strong><br>
+              <span class="rnote">① Đọc hết các câu hỏi (chỉ phần câu hỏi, không cần đọc 4 đáp án)</span><br>
+              <span class="rnote">② Gạch chân keyword quan trọng trong mỗi câu hỏi</span><br>
+              <span class="rnote">③ Scan bài tìm đúng vị trí chứa keyword đó</span><br>
+              <span class="rnote">④ Đọc kỹ đoạn xung quanh keyword → chọn đáp án</span>
+            </div></li>
+          </ul>
+          <div class="codebox">6 dạng câu hỏi Part 7 — thời gian xử lý chuẩn từng loại:<br><br>
+① <strong>Main idea/purpose</strong> &nbsp;~20s → Nhìn subject line + câu đầu tiên của bài là đủ<br>&nbsp;&nbsp;&nbsp;"What is the main purpose of...?" · "Why was this email written?"<br><br>
+② <strong>Detail/fact</strong> &nbsp;~30s → Scan keyword từ câu hỏi, đọc đúng đoạn đó<br>&nbsp;&nbsp;&nbsp;"What time does...?" · "How much is...?" · "When will...?"<br><br>
+③ <strong>NOT true / NOT mentioned</strong> &nbsp;~45s → Phải kiểm tra cả 4 đáp án với bài · Làm sau, không làm trước<br>&nbsp;&nbsp;&nbsp;"Which is NOT mentioned?" · "What is NOT true about...?"<br><br>
+④ <strong>Inference/Implication</strong> &nbsp;~50s → Đọc đoạn xung quanh keyword, không có câu trả lời literal<br>&nbsp;&nbsp;&nbsp;"What is implied about...?" · "What can be inferred...?"<br><br>
+⑤ <strong>Vocabulary in context</strong> &nbsp;~25s → Đọc câu trước + câu sau từ đó, không đọc rộng hơn<br>&nbsp;&nbsp;&nbsp;"The word '____' in paragraph X is closest in meaning to...?"<br><br>
+⑥ <strong>Cross-reference (double/triple passage)</strong> &nbsp;~60s → Xác định thông tin nằm ở bài nào → chỉ đọc đoạn đó<br>&nbsp;&nbsp;&nbsp;"According to both passages..." · "What does the second email suggest about...?"</div>
+          <ul class="rule-list">
+            <li><div class="dot"></div><div><strong>Double/Triple passage:</strong> đọc câu hỏi trước để biết cần thông tin từ bài nào — không đọc cả 2-3 bài từ đầu<br><span class="rnote">Câu kết hợp thông tin từ 2 bài → tìm keyword ở bài 1, rồi đối chiếu với bài 2</span></div></li>
+            <li><div class="dot"></div><strong>Nguyên tắc:</strong> câu đọc 2 lần mà vẫn không chắc → đoán và chuyển tiếp, không ngồi lại</li>
+          </ul>
+        </div>
+        <div class="theory-block">
+          <div class="theory-title">Phân bổ thời gian 43 phút Part 7</div>
+          <ul class="rule-list">
+            <li><div class="dot"></div>Single passage (29 câu / ~10 bài): khoảng 20–22 phút — trung bình 2–2.5 phút/bài</li>
+            <li><div class="dot"></div>Double passage (10 câu / 2 cặp): khoảng 10–11 phút — đọc câu hỏi trước, xác định lấy thông tin từ bài nào</li>
+            <li><div class="dot"></div>Triple passage (15 câu / 3 bộ): khoảng 12–13 phút — phức tạp nhất, làm sau cùng</li>
+            <li><div class="dot"></div><strong>Nguyên tắc:</strong> câu nào đọc 2 lần mà vẫn không chắc → đoán và chuyển tiếp, không ngồi lại</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="asec">
+        <div class="asec-title">⏱ Phân bổ thời gian toàn bộ phần Reading — 75 phút</div>
+        <div class="theory-block">
+          <ul class="rule-list">
+            <li><div class="dot"></div><strong>Part 5:</strong> 20 phút (30 câu — tối đa 40 giây/câu)</li>
+            <li><div class="dot"></div><strong>Part 6:</strong> 12 phút (16 câu — 4 đoạn, ~3 phút/đoạn)</li>
+            <li><div class="dot"></div><strong>Part 7:</strong> 40 phút (54 câu)</li>
+            <li><div class="dot"></div><strong>3 phút cuối:</strong> dừng đọc bài, điền hết mọi câu còn trống — đoán ngẫu nhiên tốt hơn để trống</li>
+          </ul>
+          <div class="codebox">Quy tắc quan trọng nhất: không bao giờ để trống câu nào dù chưa đọc bài<br><em>Đoán ngẫu nhiên = 25% đúng · Để trống = 0% đúng</em></div>
+        </div>
+      </div>
+
+      <div class="asec">
+        <div class="asec-title">✏️ Bài tập hôm nay — Luyện chiến lược cả 3 Part</div>
+        <div class="ex-grid">
+          <div class="ex-card">
+            <span class="tag tg-read">Part 5 & 6 — 25 phút</span>
+            <div class="ex-title">Part 5: 20 câu · Part 6: 2 đoạn</div>
+            <div class="ex-steps">
+              <div class="exs"><div class="sd" style="background:var(--w3)"></div>Part 5: nhìn 4 đáp án trước → ghi tên dạng câu vào lề → mới đọc câu → chọn</div>
+              <div class="exs"><div class="sd" style="background:var(--w3)"></div>Part 6: ghi G/V/I/L vào lề mỗi câu trước khi điền — xử lý theo đúng loại</div>
+              <div class="exs"><div class="sd" style="background:var(--w3)"></div>Sau khi làm: với mỗi câu sai, ghi lại loại câu và lý do sai vào error log</div>
+            </div>
+          </div>
+          <div class="ex-card">
+            <span class="tag tg-read">Part 7 — 30 phút</span>
+            <div class="ex-title">3 single passage + 1 double passage</div>
+            <div class="ex-steps">
+              <div class="exs"><div class="sd" style="background:var(--w3)"></div>Thực hành đúng quy trình: đọc câu hỏi → gạch keyword → scan → đọc đoạn → chọn</div>
+              <div class="exs"><div class="sd" style="background:var(--w3)"></div>Ghi thời gian thực tế dùng cho mỗi bài để tự đánh giá tốc độ</div>
+              <div class="exs"><div class="sd" style="background:var(--w3)"></div>Câu sai: đọc lại bài, tìm đáp án đúng ngay trong bài, ghi lý do sai</div>
+              <div class="exn">Sai vì scan nhầm keyword? Hiểu sai loại câu hỏi? Không kịp giờ?</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="asec">
+        <div class="asec-title">📄 Bài tóm tắt — 15 phút cuối</div>
+        <div class="topic-pill tp-s" style="margin-top:4px">📄 Tóm tắt thông báo 2 đoạn</div>
+        <div class="passage-lbl">Đoạn văn — đọc xong đóng lại trước khi viết</div>
+        <div class="passage">"Notice: Office Relocation — Our downtown office will move to 45 Harbor Street effective December 1. The new facility offers better meeting rooms and parking. Some services may be temporarily unavailable during the transition.<br><br>Employees should update contact information and notify clients of the new address. Moving assistance will be provided November 28–29. Please coordinate with your manager for specific arrangements."</div>
+        <div class="exs" style="margin-top:8px"><div class="sd" style="background:var(--sum)"></div>Viết 4–5 câu tóm tắt — không nhìn lại bài khi viết</div>
+        <div class="exn">Đoạn 1: thông tin chính (sự kiện gì, khi nào) · Đoạn 2: việc cần làm</div>
+        <div style="margin-top:10px;background:var(--card2);border:1px solid var(--border);border-radius:var(--r-sm);padding:12px 14px">
+          <span class="tag tg-vocab" style="margin-bottom:6px">Từ vựng — 5 phút</span>
+          <div class="exs" style="margin-top:4px"><div class="sd" style="background:var(--vocab)"></div>Vào <a href="https://study4.com/posts/999/tong-hop-chu-de-tu-vung-toeic-thong-dung-ban-can-biet/" target="_blank" style="color:var(--w2);font-weight:600">Study4 — Tổng hợp 600 từ vựng TOEIC</a> → học 5–8 từ liên quan đến passage vừa tóm tắt · ghi vào <strong>TOEIC_Vocabulary.xlsx</strong></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- B6 -->
+  <div class="acc">
+    <div class="acc-hd" onclick="tog(this)">
+      <div class="acc-hd-left">
+        <span class="acc-num">Buổi 6</span>
+        <span class="acc-title">Drill tổng hợp tính giờ + Tóm tắt bài dài</span>
+      </div>
+      <div class="acc-right">
+        <span class="acc-time">⏱ ~75 phút</span>
+        <span class="tag tg-fill">Điền từ</span>
+        <span class="tag tg-sum">Tóm tắt</span>
+      </div>
+      <span class="acc-arr">▼</span>
+    </div>
+    <div class="acc-body">
+      <div class="asec">
+        <div class="asec-title">✏️ Bài tập hôm nay</div>
+        <div class="ex-grid">
+          <div class="ex-card">
+            <span class="tag tg-fill">Bài điền tính giờ — 40 phút</span>
+            <div class="ex-title">Part 5 (30 câu/20 phút) + Part 6 (2 đoạn/10 phút) + Part 7 (2 bài/10 phút)</div>
+            <div class="ex-steps">
+              <div class="exs"><div class="sd" style="background:var(--fill)"></div>Lần đầu tiên làm Reading theo đúng phân bổ thời gian thật</div>
+              <div class="exs"><div class="sd" style="background:var(--fill)"></div>Câu chưa kịp làm → điền ngẫu nhiên, không để trống</div>
+              <div class="exs"><div class="sd" style="background:var(--fill)"></div>Sau khi xong: kiểm tra xem có áp dụng đúng chiến lược scan Part 7 chưa</div>
+              <div class="exn">Đây là bài tự đánh giá — không phải bài chấm điểm số</div>
+            </div>
+          </div>
+          <div class="ex-card">
+            <span class="tag tg-sum">Bài tóm tắt — 25 phút</span>
+            <div class="topic-pill tp-s">📄 Tóm tắt bài báo 3 đoạn (~200 từ)</div>
+            <div class="ex-title">Đọc → đóng lại → viết 5–6 câu tóm tắt</div>
+            <div class="passage-lbl">Đoạn văn cần đọc — dài nhất từ trước đến nay</div>
+            <div class="passage">"Global e-commerce sales reached $5.8 trillion in 2023, up 10% year-on-year. Mobile shopping accounted for 60% of transactions, driven by younger consumers. Businesses with mobile-optimised platforms reported higher conversion rates.<br><br>However, supply chain disruptions continue to challenge retailers. Shipping delays and rising logistics costs have forced many companies to revise delivery timelines. Regional warehousing is emerging as a popular solution.<br><br>AI-powered personalisation is predicted to define 2024. Retailers using recommendation algorithms have seen a 25% uplift in average order value, with investment in this area expected to double."</div>
+            <div class="exs" style="margin-top:6px"><div class="sd" style="background:var(--sum)"></div>Mỗi đoạn 1–2 câu tóm tắt. Dùng lời mình hoàn toàn — không chép từ bài gốc</div>
+          </div>
+        </div>
+        <div class="ex-grid" style="margin-top:10px">
+          <div class="ex-card" style="grid-column:1/-1">
+            <span class="tag tg-vocab">Từ vựng — 5 phút cuối</span>
+            <div class="ex-title">Học thêm từ vựng liên quan đến chủ đề bài tóm tắt hôm nay</div>
+            <div class="ex-steps">
+              <div class="exs"><div class="sd" style="background:var(--vocab)"></div>Vào <a href="https://study4.com/posts/999/tong-hop-chu-de-tu-vung-toeic-thong-dung-ban-can-biet/" target="_blank" style="color:var(--w2);font-weight:600">Study4 — Tổng hợp 600 từ vựng TOEIC</a> → chọn chủ đề Thương mại điện tử hoặc Kinh doanh</div>
+              <div class="exs"><div class="sd" style="background:var(--vocab)"></div>Học 5–8 từ mới · ghi ngay vào file <strong>TOEIC_Vocabulary.xlsx</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="res-title">Tài liệu tham khảo — Tuần 2</div>
+  <div class="res-grid">
+    <a class="res-card" href="https://study4.vn/toeic/listening" target="_blank"><div class="rc-cat" style="color:var(--w2)">Luyện nghe</div><div class="rc-name">Study4 — Listening</div><div class="rc-desc">Bài tập Part 3/4 theo set, có transcript để review sau khi làm</div><div class="rc-url">study4.vn/toeic/listening</div></a>
+    <a class="res-card" href="https://4english.vn/luyen-thi-toeic" target="_blank"><div class="rc-cat" style="color:var(--w2)">Chiến lược</div><div class="rc-name">4English — Luyện thi TOEIC</div><div class="rc-desc">Hướng dẫn chiến lược từng Part, mẹo làm bài nhanh bằng tiếng Việt</div><div class="rc-url">4english.vn/luyen-thi-toeic</div></a>
+    <a class="res-card" href="https://study4.vn/toeic/reading" target="_blank"><div class="rc-cat" style="color:var(--w2)">Luyện đọc</div><div class="rc-name">Study4 — Reading</div><div class="rc-desc">Bài tập Part 5/6/7 có giải thích chi tiết từng câu</div><div class="rc-url">study4.vn/toeic/reading</div></a>
+    <a class="res-card" href="https://elllo.org" target="_blank"><div class="rc-cat" style="color:var(--w2)">Nghe thêm</div><div class="rc-name">ELLLO — Listening</div><div class="rc-desc">Hội thoại ngắn nhiều giọng khác nhau, có transcript — luyện nghe tự nhiên</div><div class="rc-url">elllo.org</div></a>
+    <a class="res-card" href="https://dailydictation.com" target="_blank"><div class="rc-cat" style="color:var(--w2)">Luyện nghe chép</div><div class="rc-name">Daily Dictation</div><div class="rc-desc">Nghe và điền từ còn thiếu vào câu — luyện tai bắt từng từ chính xác, rất hiệu quả cho Part 2/3/4</div><div class="rc-url">dailydictation.com</div></a>
+  </div>
+</div>
+
+<!-- ══════════ TUẦN 3 ══════════ -->
+<div class="wpanel" id="w3">
+  <div class="wk-intro">
+    <span class="wbadge wb3">Tuần 3 · 3 buổi</span>
+    <h2>Luyện Reading — 100 câu mỗi buổi</h2>
+    <p>Mỗi buổi dùng 1 bộ đề Reading mới. Làm bài bấm giờ nghiêm túc (75 phút) → review toàn bộ câu sai. Quy tắc bắt buộc: điền hết 100 câu, không để trống.</p>
+  </div>
+
+  <div class="fmt-grid">
+    <div class="fmt-card">
+      <h3>⏱ Phân bổ thời gian 75 phút</h3>
+      <div class="tbar">
+        <div class="ts" style="width:27%;background:var(--fill)"></div>
+        <div class="ts" style="width:16%;background:var(--w2)"></div>
+        <div class="ts" style="width:53%;background:var(--w1)"></div>
+        <div class="ts" style="width:4%;background:var(--w5)"></div>
+      </div>
+      <div class="tlbls" style="margin-bottom:12px">
+        <span class="tl"><span class="tl-dot" style="background:var(--fill)"></span>Part 5 — 20 phút</span>
+        <span class="tl"><span class="tl-dot" style="background:var(--w2)"></span>Part 6 — 12 phút</span>
+        <span class="tl"><span class="tl-dot" style="background:var(--w1)"></span>Part 7 — 40 phút</span>
+        <span class="tl"><span class="tl-dot" style="background:var(--w5)"></span>Điền nốt — 3 phút</span>
+      </div>
+      <div class="fci"><div class="fci-dot" style="background:var(--fill)"></div><div><strong>Part 5:</strong> tối đa 40 giây/câu — câu không chắc → đánh dấu, bỏ qua, làm tiếp<div class="fci-note">Không ngồi nghĩ 1 câu mà mất cả phần còn lại</div></div></div>
+      <div class="fci"><div class="fci-dot" style="background:var(--w2)"></div><div><strong>Part 6:</strong> phân loại G/V/I/L trước khi điền</div></div>
+      <div class="fci"><div class="fci-dot" style="background:var(--w1)"></div><div><strong>Part 7:</strong> đọc câu hỏi trước → scan keyword → không đọc cả bài từ đầu</div></div>
+      <div class="fci"><div class="fci-dot" style="background:var(--w5)"></div><div><strong>3 phút cuối:</strong> dừng đọc bài, điền hết câu còn trống<div class="fci-note">Đoán ngẫu nhiên = 25% đúng, tốt hơn 0% nếu để trống</div></div></div>
+    </div>
+    <div class="fmt-card">
+      <h3>🔍 Quy trình review sau khi làm bài</h3>
+      <div class="fci"><div class="fci-dot" style="background:var(--w4)"></div>Ghi điểm Part 5 / Part 6 / Part 7 riêng vào bảng theo dõi điểm</div>
+      <div class="fci"><div class="fci-dot" style="background:var(--fill)"></div><div><strong>Part 5 sai:</strong> phân loại dạng lỗi → ghi quy tắc đúng vào error log<div class="fci-note">Dạng nào sai ≥3 câu/buổi → drill thêm 15 phút tối hôm đó</div></div></div>
+      <div class="fci"><div class="fci-dot" style="background:var(--w2)"></div><strong>Part 6 sai:</strong> kiểm tra lại xem mình có phân loại đúng loại câu chưa</div>
+      <div class="fci"><div class="fci-dot" style="background:var(--w1)"></div><div><strong>Part 7 sai:</strong> đọc lại đoạn văn, tìm keyword, hiểu tại sao sai<div class="fci-note">Sai vì scan nhầm keyword? Hiểu sai câu hỏi? Không kịp giờ?</div></div></div>
+    </div>
+  </div>
+
+  <div class="acc">
+    <div class="acc-hd" onclick="tog(this)">
+      <div class="acc-hd-left"><span class="acc-num">Buổi 7</span><span class="acc-title">Reading Set #1 — làm bài + review đầy đủ</span></div>
+      <div class="acc-right"><span class="acc-time">⏱ ~2 giờ 15 phút</span><span class="tag tg-read">100 câu Reading</span></div>
+      <span class="acc-arr">▼</span>
+    </div>
+    <div class="acc-body open">
+      <div class="asec">
+        <div class="asec-title">📝 Làm bài — 75 phút</div>
+        <div class="sess-block" style="border-left:3px solid var(--w3);background:var(--w3l)">
+          <div class="exs"><div class="sd" style="background:var(--w3)"></div>Đề gợi ý: <a href="https://study4.com/tests/224/new-economy-toeic-test-1/" target="_blank" style="color:var(--w3);font-weight:600">Study4 — New Economy TOEIC Test 1</a> (chọn phần Reading) hoặc sách ETS Official Vol 1</div>
+          <div class="exs"><div class="sd" style="background:var(--fill)"></div>⚡ <strong>Warm-up 10 phút trước khi làm đề:</strong> 10 câu Part 5 tập trung đúng 3 dạng → <a href="https://toeicacademy.com/toeic-part-5-prepositions-conjunctions/" target="_blank" style="color:var(--w3);font-weight:600">Conjunction & Preposition</a> + <a href="https://study4.com/tests/228/practice/?part=757" target="_blank" style="color:var(--w3);font-weight:600">Word Form</a> · mục tiêu 9/10 trước khi bắt đầu đề chính</div>
+          <div class="exs"><div class="sd" style="background:var(--w3)"></div>Không dừng giữa chừng, không xem đáp án khi đang làm</div>
+          <div class="exs"><div class="sd" style="background:var(--w3)"></div>Điền hết 100 câu trước khi hết giờ — kể cả câu chưa đọc bài</div>
+          <div class="exs"><div class="sd" style="background:var(--w3)"></div>Ghi lại thời gian thực tế dùng cho từng Part ra lề đề</div>
+        </div>
+      </div>
+      <div class="asec">
+        <div class="asec-title">🔍 Review câu sai — 50 phút</div>
+        <div class="ex-grid">
+          <div class="ex-card">
+            <span class="tag tg-fill">Review Part 5 & 6</span>
+            <div class="ex-steps">
+              <div class="exs"><div class="sd" style="background:var(--fill)"></div>Ghi điểm P5 và P6 riêng vào sheet <strong>Theo Dõi Điểm</strong> trong TOEIC_Vocabulary.xlsx</div>
+              <div class="exs"><div class="sd" style="background:var(--fill)"></div>Mỗi câu P5 sai: ghi dạng lỗi + quy tắc đúng vào sheet <strong>Error Log</strong> trong TOEIC_Vocabulary.xlsx</div>
+              <div class="exs"><div class="sd" style="background:var(--fill)"></div>Mỗi câu P6 sai: kiểm tra lại loại câu (G/V/I/L) và cách xử lý đúng</div>
+            </div>
+          </div>
+          <div class="ex-card">
+            <span class="tag tg-read">Review Part 7</span>
+            <div class="ex-steps">
+              <div class="exs"><div class="sd" style="background:var(--w3)"></div>Đọc lại đoạn văn của câu sai → tìm đáp án đúng ngay trong bài</div>
+              <div class="exs"><div class="sd" style="background:var(--w3)"></div>Ghi lý do sai vào sheet <strong>Error Log</strong>: scan nhầm keyword · hiểu sai câu hỏi · không kịp giờ</div>
+              <div class="exs"><div class="sd" style="background:var(--w3)"></div>Kiểm tra: còn câu nào bị bỏ trống không? → phải = 0</div>
+            </div>
+          </div>
+        </div>
+        <div style="background:var(--card2);border:1px solid var(--border);border-radius:var(--r-sm);padding:10px 14px;margin-top:10px">
+          <span class="tag tg-vocab" style="margin-bottom:6px">Từ vựng — 10 phút</span>
+          <div class="exs" style="margin-top:6px"><div class="sd" style="background:var(--vocab)"></div>Những từ lạ gặp trong đề hôm nay → tra nghĩa + ghi vào <strong>TOEIC_Vocabulary.xlsx</strong> sheet Word Form hoặc Collocation</div>
+          <div class="exs"><div class="sd" style="background:var(--vocab)"></div>Học thêm 5–8 từ TOEIC chủ đề đề thi hôm nay trên <a href="https://study4.com/posts/999/tong-hop-chu-de-tu-vung-toeic-thong-dung-ban-can-biet/" target="_blank" style="color:var(--w3);font-weight:600">Study4 — Tổng hợp 600 từ vựng TOEIC</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="acc">
+    <div class="acc-hd" onclick="tog(this)">
+      <div class="acc-hd-left"><span class="acc-num">Buổi 8</span><span class="acc-title">Reading Set #2 — áp dụng bài học từ buổi 7</span></div>
+      <div class="acc-right"><span class="acc-time">⏱ ~2 giờ 15 phút</span><span class="tag tg-read">100 câu Reading</span></div>
+      <span class="acc-arr">▼</span>
+    </div>
+    <div class="acc-body">
+      <div class="asec">
+        <div class="asec-title">📝 Làm bài — 75 phút</div>
+        <div class="sess-block" style="border-left:3px solid var(--w3);background:var(--w3l)">
+          <div class="exs"><div class="sd" style="background:var(--w3)"></div>Đề gợi ý: <a href="https://study4.com/tests/225/new-economy-toeic-test-2/" target="_blank" style="color:var(--w3);font-weight:600">Study4 — New Economy TOEIC Test 2</a> (chọn phần Reading) — ý thức sửa đúng lý do sai từ buổi 7</div>
+          <div class="exn">Ví dụ: buổi 7 hay hết giờ trước khi xong Part 7 → buổi 8 phải làm Part 5 nhanh hơn, không nán lại câu khó</div>
+          <div class="exs"><div class="sd" style="background:var(--w3)"></div>Đánh dấu câu mình đoán (không chắc) để review kỹ hơn sau</div>
+        </div>
+      </div>
+      <div class="asec">
+        <div class="asec-title">🔍 Review + So sánh với buổi 7 — 50 phút</div>
+        <div class="sess-block">
+          <div class="exs"><div class="sd" style="background:var(--fill)"></div>Ghi điểm từng Part → so sánh với buổi 7: tăng hay giảm?</div>
+          <div class="exs"><div class="sd" style="background:var(--fill)"></div>Dạng lỗi Part 5 còn lặp lại? → ghi vào sheet <strong>Error Log</strong>, drill thêm tối nay</div>
+          <div class="exs"><div class="sd" style="background:var(--fill)"></div>Dạng lỗi mới xuất hiện → phân tích và thêm vào sheet <strong>Error Log</strong></div>
+          <div class="exs"><div class="sd" style="background:var(--w3)"></div>Part 7: mình hay sai dạng câu nào nhất — Detail · NOT true · Inference?</div>
+        </div>
+        <div style="background:var(--card2);border:1px solid var(--border);border-radius:var(--r-sm);padding:10px 14px;margin-top:10px">
+          <span class="tag tg-vocab" style="margin-bottom:6px">Từ vựng — 10 phút</span>
+          <div class="exs" style="margin-top:6px"><div class="sd" style="background:var(--vocab)"></div>Những từ lạ gặp trong đề hôm nay → tra nghĩa + ghi vào <strong>TOEIC_Vocabulary.xlsx</strong> sheet Word Form hoặc Collocation</div>
+          <div class="exs"><div class="sd" style="background:var(--vocab)"></div>Học thêm 5–8 từ TOEIC chủ đề đề thi hôm nay trên <a href="https://study4.com/posts/999/tong-hop-chu-de-tu-vung-toeic-thong-dung-ban-can-biet/" target="_blank" style="color:var(--w3);font-weight:600">Study4 — Tổng hợp 600 từ vựng TOEIC</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="acc">
+    <div class="acc-hd" onclick="tog(this)">
+      <div class="acc-hd-left"><span class="acc-num">Buổi 9</span><span class="acc-title">Reading Set #3 — tổng kết tuần</span></div>
+      <div class="acc-right"><span class="acc-time">⏱ ~2 giờ 15 phút</span><span class="tag tg-read">100 câu Reading</span></div>
+      <span class="acc-arr">▼</span>
+    </div>
+    <div class="acc-body">
+      <div class="asec">
+        <div class="asec-title">📝 Làm bài + Review + Tổng kết</div>
+        <div class="sess-block" style="border-left:3px solid var(--w3);background:var(--w3l)">
+          <div class="exs"><div class="sd" style="background:var(--w3)"></div>Đề gợi ý: <a href="https://study4.com/tests/226/new-economy-toeic-test-3/" target="_blank" style="color:var(--w3);font-weight:600">Study4 — New Economy TOEIC Test 3</a> (chọn phần Reading) — điều kiện giả lập thi thật: không điện thoại, không tra từ điển</div>
+          <div class="exs"><div class="sd" style="background:var(--w3)"></div>Mục tiêu: hoàn thành đúng 75 phút, 0 câu bỏ trống</div>
+        </div>
+        <div class="sess-block" style="margin-top:8px">
+          <div class="exs"><div class="sd" style="background:var(--fill)"></div>Review đầy đủ mọi câu sai theo quy trình chuẩn</div>
+          <div class="exs"><div class="sd" style="background:var(--fill)"></div><strong>Tổng kết 3 buổi:</strong> Part 5 hay sai dạng nào nhất? Part 7 sai loại câu nào?</div>
+          <div class="exs"><div class="sd" style="background:var(--fill)"></div>Xu hướng điểm: Buổi 7 → 8 → 9 có tăng đều không?</div>
+          <div class="exn">Danh sách điểm yếu này là đầu vào để điều chỉnh cách review trong tuần 4</div>
+        </div>
+        <div style="background:var(--card2);border:1px solid var(--border);border-radius:var(--r-sm);padding:10px 14px;margin-top:10px">
+          <span class="tag tg-vocab" style="margin-bottom:6px">Từ vựng — 10 phút</span>
+          <div class="exs" style="margin-top:6px"><div class="sd" style="background:var(--vocab)"></div>Những từ lạ gặp trong đề hôm nay → tra nghĩa + ghi vào <strong>TOEIC_Vocabulary.xlsx</strong> sheet Word Form hoặc Collocation</div>
+          <div class="exs"><div class="sd" style="background:var(--vocab)"></div>Học thêm 5–8 từ TOEIC chủ đề đề thi hôm nay trên <a href="https://study4.com/posts/999/tong-hop-chu-de-tu-vung-toeic-thong-dung-ban-can-biet/" target="_blank" style="color:var(--w3);font-weight:600">Study4 — Tổng hợp 600 từ vựng TOEIC</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="res-title">Nguồn đề & Tài liệu — Tuần 3</div>
+  <div class="res-grid">
+    <a class="res-card" href="https://study4.vn/toeic/de-thi" target="_blank"><div class="rc-cat" style="color:var(--w3)">Đề luyện tập</div><div class="rc-name">Study4 — Đề Reading</div><div class="rc-desc">Bộ đề Reading riêng, chấm điểm tự động, giải thích từng câu</div><div class="rc-url">study4.vn/toeic/de-thi</div></a>
+    <a class="res-card" href="https://4english.vn/luyen-thi-toeic/reading" target="_blank"><div class="rc-cat" style="color:var(--w3)">Luyện đọc</div><div class="rc-name">4English — Reading TOEIC</div><div class="rc-desc">Part 5/6/7 phân loại câu hỏi, giải thích tiếng Việt chi tiết</div><div class="rc-url">4english.vn/luyen-thi-toeic</div></a>
+    <a class="res-card" href="https://www.ets.org/toeic" target="_blank"><div class="rc-cat" style="color:var(--w3)">Đề gốc</div><div class="rc-name">ETS Official</div><div class="rc-desc">Đề chính thức từ đơn vị ra đề — gần nhất với đề thi thật</div><div class="rc-url">ets.org/toeic</div></a>
+    <a class="res-card" href="https://toeic.com.vn/de-thi-toeic" target="_blank"><div class="rc-cat" style="color:var(--w3)">Kho đề</div><div class="rc-name">TOEIC.com.vn</div><div class="rc-desc">Kho đề Reading lớn, bao gồm ETS Official và Hackers</div><div class="rc-url">toeic.com.vn</div></a>
+    <a class="res-card" href="https://study4.com/posts/999/tong-hop-chu-de-tu-vung-toeic-thong-dung-ban-can-biet/" target="_blank"><div class="rc-cat" style="color:var(--w3)">Từ vựng theo chủ đề</div><div class="rc-name">Study4 — 600 từ vựng TOEIC</div><div class="rc-desc">Học từ vựng theo chủ đề thi TOEIC, phát âm chuẩn, có ví dụ câu</div><div class="rc-url">study4.com</div></a>
+    <div class="res-card"><div class="rc-cat" style="color:var(--w3)">File từ vựng</div><div class="rc-name">TOEIC_Vocabulary.xlsx</div><div class="rc-desc">Ghi từ lạ trong đề vào sheet Word Form · Collocation · Error Log sau mỗi buổi</div><div class="rc-url">File đính kèm</div></div>
+  </div>
+</div>
+
+<!-- ══════════ TUẦN 4 ══════════ -->
+<div class="wpanel" id="w4">
+  <div class="wk-intro">
+    <span class="wbadge wb4">Tuần 4 · 3 buổi</span>
+    <h2>Luyện Listening — 100 câu mỗi buổi</h2>
+    <p>Phần review Listening mất nhiều thời gian hơn Reading vì cần nghe lại từng câu sai và đọc transcript. Nhưng đây là cách duy nhất để biết mình nghe sai ở đâu và sửa đúng chỗ.</p>
+  </div>
+
+  <div class="fmt-grid">
+    <div class="fmt-card">
+      <h3>🎧 Yêu cầu khi làm bài Listening</h3>
+      <div class="fci"><div class="fci-dot" style="background:var(--w4)"></div><div><strong>Part 1/2:</strong> nên ổn — giữ vững, nghe từ đầu câu hỏi để xác định dạng</div></div>
+      <div class="fci"><div class="fci-dot" style="background:var(--w4)"></div><div><strong>Part 3/4:</strong> dùng 8 giây chờ scan câu hỏi số 2 trước mỗi set — câu detail là câu cần định hướng nghe nhất<div class="fci-note">Câu 1 (topic) → nghe câu đầu · Câu 2 (detail) → scan trước · Câu 3 (next action) → nghe đoạn cuối</div></div></div>
+      <div class="fci"><div class="fci-dot" style="background:var(--w4)"></div>Không tua lại audio dù chưa nghe kịp — đúng điều kiện thi thật</div>
+      <div class="fci"><div class="fci-dot" style="background:var(--w4)"></div>Điền hết 100 câu — không để trống</div>
+    </div>
+    <div class="fmt-card">
+      <h3>🔍 Quy trình review — 3 bước bắt buộc</h3>
+      <div class="fci"><div class="fci-dot" style="background:var(--w3)"></div><div><strong>Bước 1:</strong> Nghe lại câu sai lần 2 — <em>không xem transcript trước</em><div class="fci-note">Vẫn sai → sang bước 2</div></div></div>
+      <div class="fci"><div class="fci-dot" style="background:var(--w4)"></div><strong>Bước 2:</strong> Mở transcript → đọc → nghe lại lần 3 vừa nghe vừa đọc theo</div>
+      <div class="fci"><div class="fci-dot" style="background:var(--w2)"></div><div><strong>Bước 3:</strong> Ghi lý do sai vào sheet <strong>Error Log</strong> trong TOEIC_Vocabulary.xlsx<div class="fci-note">① Không kịp preview · ② Nghe nhầm từ · ③ Không hiểu toàn bộ ngữ cảnh</div></div></div>
+      <div class="fci"><div class="fci-dot" style="background:var(--w5)"></div>Shadowing 2–3 đoạn khó nhất của buổi (5–8 phút)</div>
+    </div>
+  </div>
+
+  <div class="acc">
+    <div class="acc-hd" onclick="tog(this)">
+      <div class="acc-hd-left"><span class="acc-num">Buổi 10</span><span class="acc-title">Listening Set #1 — làm bài + review đầy đủ</span></div>
+      <div class="acc-right"><span class="acc-time">⏱ ~2 giờ</span><span class="tag tg-listen">100 câu Listening</span></div>
+      <span class="acc-arr">▼</span>
+    </div>
+    <div class="acc-body open">
+      <div class="asec">
+        <div class="asec-title">🎧 Làm bài — ~45 phút</div>
+        <div class="sess-block" style="border-left:3px solid var(--w4);background:var(--w4l)">
+          <div class="exs"><div class="sd" style="background:var(--w4)"></div>Đề gợi ý: <a href="https://study4.com/tests/227/new-economy-toeic-test-4/" target="_blank" style="color:var(--w4);font-weight:600">Study4 — New Economy TOEIC Test 4</a> (chọn phần Listening) hoặc sách ETS Official</div>
+          <div class="exs"><div class="sd" style="background:var(--fill)"></div>⚡ <strong>Warm-up 10 phút trước khi làm đề:</strong> 10 câu Part 5 tập trung Conjunction · Preposition · Word Form → <a href="https://toeicacademy.com/toeic-part-5-prepositions-conjunctions/" target="_blank" style="color:var(--w4);font-weight:600">TOEICacademy</a> · mục tiêu 9/10 — nếu còn sai nhiều → ôn lại Buổi 3 tối nay</div>
+          <div class="exs"><div class="sd" style="background:var(--w4)"></div>Áp dụng preview technique cho mọi set Part 3/4</div>
+          <div class="exs"><div class="sd" style="background:var(--w4)"></div>Đánh dấu câu mình đoán (không chắc) để review kỹ hơn</div>
+        </div>
+      </div>
+      <div class="asec">
+        <div class="asec-title">🔍 Review câu sai — 70 phút</div>
+        <div class="ex-grid">
+          <div class="ex-card">
+            <span class="tag tg-listen">Ghi điểm & phân loại</span>
+            <div class="ex-steps">
+              <div class="exs"><div class="sd" style="background:var(--w4)"></div>Ghi điểm Part 1/2/3/4 riêng vào sheet <strong>Theo Dõi Điểm</strong> trong TOEIC_Vocabulary.xlsx</div>
+              <div class="exs"><div class="sd" style="background:var(--w4)"></div>Đếm số câu sai mỗi Part — Part nào thấp nhất?</div>
+            </div>
+          </div>
+          <div class="ex-card">
+            <span class="tag tg-listen">Nghe lại + ghi lý do</span>
+            <div class="ex-steps">
+              <div class="exs"><div class="sd" style="background:var(--w4)"></div>Từng câu Part 3/4 sai → thực hiện quy trình 3 bước</div>
+              <div class="exs"><div class="sd" style="background:var(--w4)"></div>Ghi lý do sai từng câu vào sheet <strong>Error Log</strong> trong TOEIC_Vocabulary.xlsx</div>
+              <div class="exs"><div class="sd" style="background:var(--w2)"></div>Shadowing 2–3 đoạn khó → nhắc lại từng câu nhỏ</div>
+            </div>
+          </div>
+        </div>
+        <div style="background:var(--card2);border:1px solid var(--border);border-radius:var(--r-sm);padding:10px 14px;margin-top:10px">
+          <span class="tag tg-vocab" style="margin-bottom:6px">Từ vựng — 10 phút</span>
+          <div class="exs" style="margin-top:6px"><div class="sd" style="background:var(--vocab)"></div>Từ nghe được trong đề nhưng chưa biết → tra nghĩa + ghi vào <strong>TOEIC_Vocabulary.xlsx</strong> sheet Word Form</div>
+          <div class="exs"><div class="sd" style="background:var(--vocab)"></div>Học thêm 5–8 từ theo chủ đề bài nghe hôm nay trên <a href="https://study4.com/posts/999/tong-hop-chu-de-tu-vung-toeic-thong-dung-ban-can-biet/" target="_blank" style="color:var(--w4);font-weight:600">Study4 — Tổng hợp 600 từ vựng TOEIC</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="acc">
+    <div class="acc-hd" onclick="tog(this)">
+      <div class="acc-hd-left"><span class="acc-num">Buổi 11</span><span class="acc-title">Listening Set #2 — sửa lý do sai từ buổi 10</span></div>
+      <div class="acc-right"><span class="acc-time">⏱ ~2 giờ</span><span class="tag tg-listen">100 câu Listening</span></div>
+      <span class="acc-arr">▼</span>
+    </div>
+    <div class="acc-body">
+      <div class="asec">
+        <div class="asec-title">🎧 Làm bài + Review + So sánh</div>
+        <div class="sess-block" style="border-left:3px solid var(--w4);background:var(--w4l)">
+          <div class="exs"><div class="sd" style="background:var(--w4)"></div>Đề gợi ý: <a href="https://study4.com/tests/228/new-economy-toeic-test-5/" target="_blank" style="color:var(--w4);font-weight:600">Study4 — New Economy TOEIC Test 5</a> (chọn phần Listening) — ý thức áp dụng đúng những gì đã sai ở buổi 10</div>
+          <div class="exn">Ví dụ: buổi 10 sai vì chưa kịp preview → buổi 11 phải preview đủ mọi set, không ngoại lệ</div>
+        </div>
+        <div class="sess-block" style="margin-top:8px">
+          <div class="exs"><div class="sd" style="background:var(--w4)"></div>Nghe lại + đọc transcript câu sai → quy trình 3 bước</div>
+          <div class="exs"><div class="sd" style="background:var(--w4)"></div>So sánh lý do sai với buổi 10: thay đổi hay lặp lại?</div>
+          <div class="exn">Lý do sai thay đổi = đang tiến bộ · Lý do lặp lại = cần thay đổi cách nghe</div>
+          <div class="exs"><div class="sd" style="background:var(--w2)"></div>Shadowing 3 đoạn khó nhất của buổi</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="acc">
+    <div class="acc-hd" onclick="tog(this)">
+      <div class="acc-hd-left"><span class="acc-num">Buổi 12</span><span class="acc-title">Listening Set #3 — tổng kết tuần</span></div>
+      <div class="acc-right"><span class="acc-time">⏱ ~2 giờ</span><span class="tag tg-listen">100 câu Listening</span></div>
+      <span class="acc-arr">▼</span>
+    </div>
+    <div class="acc-body">
+      <div class="asec">
+        <div class="asec-title">🎧 Làm bài + Review + Tổng kết tuần</div>
+        <div class="sess-block" style="border-left:3px solid var(--w4);background:var(--w4l)">
+          <div class="exs"><div class="sd" style="background:var(--w4)"></div>Đề gợi ý: <a href="https://study4.com/tests/1209/new-economy-toeic-test-6/" target="_blank" style="color:var(--w4);font-weight:600">Study4 — New Economy TOEIC Test 6</a> (chọn phần Listening) — điều kiện thi thật hoàn toàn</div>
+        </div>
+        <div class="sess-block" style="margin-top:8px">
+          <div class="exs"><div class="sd" style="background:var(--w4)"></div>Review đầy đủ theo quy trình 3 bước</div>
+          <div class="exs"><div class="sd" style="background:var(--w4)"></div><strong>Tổng kết:</strong> điền bảng theo dõi — Part 1: _/6 · Part 2: _/25 · Part 3: _/39 · Part 4: _/30</div>
+          <div class="exs"><div class="sd" style="background:var(--w4)"></div>Lý do sai phổ biến nhất của mình là gì? → ghi lại để nhớ khi vào tuần 5</div>
+        </div>
+        <div style="background:var(--card2);border:1px solid var(--border);border-radius:var(--r-sm);padding:10px 14px;margin-top:10px">
+          <span class="tag tg-vocab" style="margin-bottom:6px">Từ vựng — 10 phút</span>
+          <div class="exs" style="margin-top:6px"><div class="sd" style="background:var(--vocab)"></div>Từ nghe được trong đề nhưng chưa biết → tra nghĩa + ghi vào <strong>TOEIC_Vocabulary.xlsx</strong> sheet Word Form</div>
+          <div class="exs"><div class="sd" style="background:var(--vocab)"></div>Học thêm 5–8 từ theo chủ đề bài nghe hôm nay trên <a href="https://study4.com/posts/999/tong-hop-chu-de-tu-vung-toeic-thong-dung-ban-can-biet/" target="_blank" style="color:var(--w4);font-weight:600">Study4 — Tổng hợp 600 từ vựng TOEIC</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="res-title">Nguồn đề & Tài liệu — Tuần 4</div>
+  <div class="res-grid">
+    <a class="res-card" href="https://study4.vn/toeic/listening" target="_blank"><div class="rc-cat" style="color:var(--w4)">Luyện nghe</div><div class="rc-name">Study4 — Listening</div><div class="rc-desc">Bộ đề Listening riêng, audio chuẩn, có transcript và giải thích</div><div class="rc-url">study4.vn/toeic/listening</div></a>
+    <a class="res-card" href="https://4english.vn/luyen-thi-toeic/listening" target="_blank"><div class="rc-cat" style="color:var(--w4)">Chiến lược</div><div class="rc-name">4English — Listening TOEIC</div><div class="rc-desc">Hướng dẫn kỹ thuật nghe Part 3/4, phân tích dạng câu, preview technique</div><div class="rc-url">4english.vn/luyen-thi-toeic</div></a>
+    <a class="res-card" href="https://www.bbc.co.uk/learningenglish" target="_blank"><div class="rc-cat" style="color:var(--w4)">Nghe thụ động</div><div class="rc-name">BBC Learning English</div><div class="rc-desc">Nghe 6 phút mỗi ngày — giọng chuẩn, chủ đề thời sự, có transcript</div><div class="rc-url">bbc.co.uk/learningenglish</div></a>
+    <a class="res-card" href="https://voalearningenglish.com" target="_blank"><div class="rc-cat" style="color:var(--w4)">Nghe thụ động</div><div class="rc-name">VOA Learning English</div><div class="rc-desc">Tốc độ vừa phải, chủ đề kinh doanh — luyện nghe nền hằng ngày</div><div class="rc-url">voalearningenglish.com</div></a>
+    <a class="res-card" href="https://study4.com/posts/999/tong-hop-chu-de-tu-vung-toeic-thong-dung-ban-can-biet/" target="_blank"><div class="rc-cat" style="color:var(--w4)">Từ vựng theo chủ đề</div><div class="rc-name">Study4 — 600 từ vựng TOEIC</div><div class="rc-desc">Học từ vựng theo chủ đề thi TOEIC, phát âm chuẩn, có ví dụ câu</div><div class="rc-url">study4.com</div></a>
+    <div class="res-card"><div class="rc-cat" style="color:var(--w4)">File từ vựng</div><div class="rc-name">TOEIC_Vocabulary.xlsx</div><div class="rc-desc">Ghi từ lạ trong đề vào sheet Word Form · Collocation · Error Log sau mỗi buổi</div><div class="rc-url">File đính kèm</div></div>
+  </div>
+</div>
+
+<!-- ══════════ TUẦN 5 ══════════ -->
+<div class="wpanel" id="w5">
+  <div class="wk-intro">
+    <span class="wbadge wb5">Tuần 5 · 3 buổi</span>
+    <h2>Làm đề tổng hợp — 200 câu mỗi buổi</h2>
+    <p>Kết hợp cả 2 kỹ năng trong điều kiện thi thật. Buổi 13 và 14 làm đề + sửa đề kỹ. Buổi 15 ôn nhẹ và vào thi. Không học kiến thức mới từ buổi 14 trở đi.</p>
+  </div>
+
+  <table class="score-tbl">
+    <thead><tr><th>Mốc</th><th>Listening</th><th>Reading</th><th>Tổng điểm</th><th>Ghi chú</th></tr></thead>
+    <tbody>
+      <tr><td class="td-b">Điểm hiện tại</td><td>260</td><td>235</td><td style="color:var(--w4);font-weight:700">495</td><td>8 câu Reading bỏ trống</td></tr>
+      <tr><td class="td-b">Sau tuần 1–2</td><td class="td-na">—</td><td class="td-na">—</td><td class="td-na">—</td><td>Nền tảng ngữ pháp + chiến lược xong</td></tr>
+      <tr><td class="td-b">Cuối tuần 3</td><td class="td-na">—</td><td>310–330</td><td>570–590</td><td>0 câu Reading bỏ trống</td></tr>
+      <tr><td class="td-b">Cuối tuần 4</td><td>310–330</td><td>310–330</td><td>610–630</td><td>Part 3/4 tăng rõ rệt</td></tr>
+      <tr><td class="td-b">Tuần 5 / Thi thật</td><td>330+</td><td>320+</td><td class="td-g">650+</td><td>Mục tiêu</td></tr>
+    </tbody>
+  </table>
+
+  <div class="acc">
+    <div class="acc-hd" onclick="tog(this)">
+      <div class="acc-hd-left"><span class="acc-num">Buổi 13</span><span class="acc-title">Full Mock Test #1 — 200 câu + sửa đề</span></div>
+      <div class="acc-right"><span class="acc-time">⏱ ~3 giờ 15 phút</span><span class="tag tg-mock">200 câu</span></div>
+      <span class="acc-arr">▼</span>
+    </div>
+    <div class="acc-body open">
+      <div class="asec">
+        <div class="asec-title">📝 Làm bài — 120 phút</div>
+        <div class="sess-block" style="border-left:3px solid var(--w5);background:var(--w5l)">
+          <div class="exs"><div class="sd" style="background:var(--w5)"></div>Đề gợi ý: <a href="https://study4.com/tests/1214/new-economy-toeic-test-7/" target="_blank" style="color:var(--w5);font-weight:600">Study4 — New Economy TOEIC Test 7</a> (làm FULL TEST 200 câu) hoặc đề ETS Official Vol 1/2 — gần nhất với thi thật</div>
+          <div class="exs"><div class="sd" style="background:var(--w5)"></div>Không điện thoại · Không tra từ điển · Bấm giờ từ đầu</div>
+          <div class="exs"><div class="sd" style="background:var(--w5)"></div>Listening: áp dụng preview technique mọi set Part 3/4</div>
+          <div class="exs"><div class="sd" style="background:var(--w5)"></div>Reading: giữ đúng phân bổ thời gian Part 5/6/7</div>
+          <div class="exs"><div class="sd" style="background:var(--w5)"></div>Điền hết 200 câu — không để trống bất kỳ câu nào</div>
+        </div>
+      </div>
+      <div class="asec">
+        <div class="asec-title">🔍 Sửa đề chi tiết — 75 phút</div>
+        <div class="ex-grid">
+          <div class="ex-card">
+            <span class="tag tg-listen">Review Listening</span>
+            <div class="ex-steps">
+              <div class="exs"><div class="sd" style="background:var(--w4)"></div>Ghi điểm Part 1/2/3/4 riêng vào sheet <strong>Theo Dõi Điểm</strong> trong TOEIC_Vocabulary.xlsx</div>
+              <div class="exs"><div class="sd" style="background:var(--w4)"></div>Nghe lại câu Part 3/4 sai → quy trình 3 bước</div>
+              <div class="exs"><div class="sd" style="background:var(--w4)"></div>Ghi lý do sai vào sheet <strong>Error Log</strong> trong TOEIC_Vocabulary.xlsx</div>
+            </div>
+          </div>
+          <div class="ex-card">
+            <span class="tag tg-read">Review Reading</span>
+            <div class="ex-steps">
+              <div class="exs"><div class="sd" style="background:var(--w3)"></div>Ghi điểm Part 5/6/7 riêng</div>
+              <div class="exs"><div class="sd" style="background:var(--fill)"></div>Part 5 sai: phân loại dạng lỗi + ghi quy tắc đúng</div>
+              <div class="exs"><div class="sd" style="background:var(--w3)"></div>Part 7 sai: đọc lại bài, tìm đáp án đúng, hiểu lý do sai</div>
+              <div class="exn">Ưu tiên sửa kỹ Part 3/4 và Part 5 trước — ảnh hưởng điểm nhiều nhất</div>
+            </div>
+          </div>
+        </div>
+        <div style="background:var(--card2);border:1px solid var(--border);border-radius:var(--r-sm);padding:10px 14px;margin-top:10px">
+          <span class="tag tg-vocab" style="margin-bottom:6px">Từ vựng — 10 phút</span>
+          <div class="exs" style="margin-top:6px"><div class="sd" style="background:var(--vocab)"></div>Từ lạ gặp trong đề → ghi vào <strong>TOEIC_Vocabulary.xlsx</strong> sheet Word Form · điền câu ví dụ ngay</div>
+          <div class="exs"><div class="sd" style="background:var(--vocab)"></div>Ôn lại sheet Error Log trong <strong>TOEIC_Vocabulary.xlsx</strong> — ghi thêm lỗi mới vừa phát hiện hôm nay</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="acc">
+    <div class="acc-hd" onclick="tog(this)">
+      <div class="acc-hd-left"><span class="acc-num">Buổi 14</span><span class="acc-title">Full Mock Test #2 — 200 câu + sửa đề</span></div>
+      <div class="acc-right"><span class="acc-time">⏱ ~3 giờ</span><span class="tag tg-mock">200 câu</span></div>
+      <span class="acc-arr">▼</span>
+    </div>
+    <div class="acc-body">
+      <div class="asec">
+        <div class="asec-title">📝 Làm bài + Sửa đề</div>
+        <div class="sess-block" style="border-left:3px solid var(--w5);background:var(--w5l)">
+          <div class="exs"><div class="sd" style="background:var(--w5)"></div>Đề gợi ý: <a href="https://study4.com/tests/1211/new-economy-toeic-test-8/" target="_blank" style="color:var(--w5);font-weight:600">Study4 — New Economy TOEIC Test 8</a> (làm FULL TEST 200 câu) — mục tiêu cao hơn buổi 13 ít nhất 15 điểm</div>
+          <div class="exs"><div class="sd" style="background:var(--w4)"></div>Review Listening: nghe lại câu sai + đọc transcript → quy trình 3 bước</div>
+          <div class="exs"><div class="sd" style="background:var(--w3)"></div>Review Reading: sửa câu sai, ghi lý do ngắn gọn</div>
+          <div class="exs"><div class="sd" style="background:var(--w5)"></div>So sánh điểm 2 mock: phần nào đã cải thiện? Phần nào chưa?</div>
+        </div>
+        <div class="sess-block" style="margin-top:8px;border-left:3px solid var(--w5)">
+          <div class="exs" style="font-weight:600"><div class="sd" style="background:var(--w5)"></div>Ghi 5 điều quan trọng nhất cần nhớ vào ngày thi</div>
+          <div class="exn">① Preview Part 3/4 · ② Nhận dạng word form qua đuôi từ · ③ Scan keyword trong Part 7 · ④ Không để trống câu nào · ⑤ Phân bổ thời gian Part 5/6/7</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="acc">
+    <div class="acc-hd" onclick="tog(this)">
+      <div class="acc-hd-left"><span class="acc-num">Buổi 15</span><span class="acc-title">Ôn nhẹ + Ngày thi</span></div>
+      <div class="acc-right"><span class="acc-time">⏱ Nghỉ ngơi tốt</span><span class="tag tg-mock">Thi thật</span></div>
+      <span class="acc-arr">▼</span>
+    </div>
+    <div class="acc-body">
+      <div class="asec">
+        <div class="asec-title">🌙 Tối hôm trước thi — tối đa 45 phút</div>
+        <div class="sess-block" style="border-left:3px solid var(--w5);background:var(--w5l)">
+          <div class="exs"><div class="sd" style="background:var(--w5)"></div>Đọc lại 5 điều cần nhớ đã ghi ở buổi 14</div>
+          <div class="exs"><div class="sd" style="background:var(--w5)"></div>Lật nhanh error log — không học thêm gì mới</div>
+          <div class="exs"><div class="sd" style="background:var(--w5)"></div>Chuẩn bị: CMND · Bút chì + tẩy · Đồng hồ đeo tay</div>
+          <div class="exs"><div class="sd" style="background:var(--w5)"></div>Ngủ sớm — không thức khuya ôn bài</div>
+        </div>
+      </div>
+      <div class="asec">
+        <div class="asec-title">🎯 Ngày thi — 5 quy tắc không được quên</div>
+        <div class="rule-box" style="box-shadow:none;border:none;margin:0">
+          <div class="rb-cols">
+            <div class="rb-col">
+              <div class="rb-lbl" style="color:var(--w4)">Khi nghe</div>
+              <div class="rbi">
+                <div style="width:20px;height:20px;border-radius:50%;background:var(--w4l);color:var(--w4);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0">1</div>
+                <div>Part 3/4: scan câu hỏi số 2 trước khi audio phát — câu detail cần biết trước mới bắt được</div>
+              </div>
+              <div class="rbn" style="margin-left:0">Dùng 8 giây chờ scan câu 2 — đây là thời gian vàng</div>
+              <div class="rbi" style="margin-top:8px">
+                <div style="width:20px;height:20px;border-radius:50%;background:var(--w4l);color:var(--w4);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0">2</div>
+                <div>Loại trừ đáp án sai khi nghe, không chờ hết bài</div>
+              </div>
+            </div>
+            <div class="rb-col">
+              <div class="rb-lbl" style="color:var(--w3)">Khi đọc</div>
+              <div class="rbi">
+                <div style="width:20px;height:20px;border-radius:50%;background:var(--w3l);color:var(--w3);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0">3</div>
+                <div>Part 5: nhìn 4 đáp án → xác định dạng → chọn. Tối đa 40 giây/câu</div>
+              </div>
+              <div class="rbi" style="margin-top:8px">
+                <div style="width:20px;height:20px;border-radius:50%;background:var(--w3l);color:var(--w3);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0">4</div>
+                <div>Part 7: đọc câu hỏi trước → scan keyword → không đọc cả bài từ đầu</div>
+              </div>
+            </div>
+            <div class="rb-col">
+              <div class="rb-lbl" style="color:var(--w5)">Quan trọng nhất</div>
+              <div class="rbi">
+                <div style="width:20px;height:20px;border-radius:50%;background:var(--w5l);color:var(--w5);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0">5</div>
+                <div>Không để trống bất kỳ câu nào — đoán ngẫu nhiên = 25% đúng, tốt hơn 0%</div>
+              </div>
+              <div class="rbn" style="margin-left:0">Còn 3 phút cuối: dừng đọc bài, điền hết mọi câu còn trống</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="res-title">Nguồn đề Full Mock & Tài liệu — Tuần 5</div>
+  <div class="res-grid">
+    <a class="res-card" href="https://study4.vn/toeic/de-thi" target="_blank"><div class="rc-cat" style="color:var(--w5)">Full Mock</div><div class="rc-name">Study4 — Full Test</div><div class="rc-desc">Full test 200 câu online, chấm điểm tự động, phân tích kết quả từng Part</div><div class="rc-url">study4.vn/toeic/de-thi</div></a>
+    <a class="res-card" href="https://4english.vn/luyen-thi-toeic/de-thi-thu" target="_blank"><div class="rc-cat" style="color:var(--w5)">Đề thi thử</div><div class="rc-name">4English — Đề thi thử</div><div class="rc-desc">Đề thi thử chuẩn format ETS, giải thích đáp án đầy đủ</div><div class="rc-url">4english.vn/luyen-thi-toeic</div></a>
+    <a class="res-card" href="https://www.ets.org/toeic" target="_blank"><div class="rc-cat" style="color:var(--w5)">Đề gốc ETS</div><div class="rc-name">ETS Official</div><div class="rc-desc">Đề chính thức — dùng cho buổi 13 và 14 để gần nhất với đề thi thật</div><div class="rc-url">ets.org/toeic</div></a>
+    <a class="res-card" href="https://toeic.com.vn/de-thi-toeic" target="_blank"><div class="rc-cat" style="color:var(--w5)">Kho đề</div><div class="rc-name">TOEIC.com.vn</div><div class="rc-desc">Kho đề TOEIC đầy đủ bao gồm ETS Official và Hackers</div><div class="rc-url">toeic.com.vn</div></a>
+    <a class="res-card" href="https://study4.com/posts/999/tong-hop-chu-de-tu-vung-toeic-thong-dung-ban-can-biet/" target="_blank"><div class="rc-cat" style="color:var(--w5)">Từ vựng theo chủ đề</div><div class="rc-name">Study4 — 600 từ vựng TOEIC</div><div class="rc-desc">Học từ vựng theo chủ đề thi TOEIC, phát âm chuẩn, có ví dụ câu</div><div class="rc-url">study4.com</div></a>
+    <div class="res-card"><div class="rc-cat" style="color:var(--w5)">File từ vựng</div><div class="rc-name">TOEIC_Vocabulary.xlsx</div><div class="rc-desc">Ghi từ lạ trong đề vào sheet Word Form · Collocation · Error Log sau mỗi buổi</div><div class="rc-url">File đính kèm</div></div>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<script>
+function tog(hd) {
+  const body = hd.nextElementSibling;
+  const arr = hd.querySelector('.acc-arr');
+  const open = body.classList.contains('open');
+  body.classList.toggle('open', !open);
+  arr.classList.toggle('open', !open);
+}
+
+function sw(n) {
+  document.querySelectorAll('.wpanel').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.wtab').forEach(b => b.classList.remove('on'));
+  document.getElementById('w'+n).classList.add('on');
+  document.querySelectorAll('.wtab')[n-1].classList.add('on');
+  window.scrollTo({top:0,behavior:'smooth'});
+  // mở accordion đầu tiên của tuần mới
+  const panel = document.getElementById('w'+n);
+  const first = panel?.querySelector('.acc-body');
+  const firstArr = panel?.querySelector('.acc-arr');
+  if(first && !first.classList.contains('open')){
+    first.classList.add('open');
+    if(firstArr) firstArr.classList.add('open');
+  }
+}
+</script>
+</body>
+</html>
